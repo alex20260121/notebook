@@ -34,8 +34,5 @@ validate_password.check_user_name=1
 ```bash
 systemctl restart mysqld.service
 ```
-## `validate_password`环境变量
-- `validate_password.policy`: 密码策略，有效值'0', '1', '2'对应策略 'LOW', 'MEDIUM', 'STRONG'。
-- `validate_password.length`: 密码最小长度，有效值为`int`整数型。
-- `validate_password.number_count`: 指定密码中至少包含的数字字符（0-9）的数量，只有在`validate_password.policy`的值 **>1** 才生效。
-- `validate_password.mixed_case_count`: 指定密码中至少包含的小写字母和大写字母的最小数量,默认值：1（即默认至少包含 1 个大写字母 + 1 个小写字母）。取值为`int`整数类型。
+## 环境变量
+`validate_password`组件公开了一组系统变量，可以自定义MySQL的密策略，当密码以明文的方式出现在`sql`语句中时，该组件会检查密码是否满足当前密码策略，如果强度不足则会拒绝该密码。
