@@ -167,3 +167,17 @@ systemctl enable mysqld.service --now
 
 ## 重置`root`密码
 此操作需要`MySQL`服务处于运行状态，并且需要用到之前[初始化数据目录](#23-初始化数据目录)生成的随机密码。
+- 登陆数据库
+```bash
+/usr/local/mysql8/bin/mysqld -u root -p
+```
+> [!TIP]
+> 此操作需要在交互时输入`mysql` root密码。
+
+- 修改`root`密码
+```bash
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+```
+> [!TIP]
+> 修改完密码之后，退出重新验证新密码是否能够登陆。
+
