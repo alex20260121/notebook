@@ -110,5 +110,6 @@ mysqld --defaults-file=mysql.cnf --initialize
 ```
 > [!NOTE]
 > 初始化过程中会生成随机密码，将密码保存下来，在后续的过程中将会重置`root`密码。
+> 或者可以在配置文件中`log-error`定义的文件路径找到。
 
 ### 2.4. 配置`systemd`服务
