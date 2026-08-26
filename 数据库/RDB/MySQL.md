@@ -72,3 +72,19 @@ useradd -r -g mysql -s /bin/false mysql
 ```bash
 tar xvf mysql-8.4.11-linux-glibc2.28-x86_64-minimal.tar.xz
 ```
+## 2. 配置文件
+MySQL服务启动时将读取配置文件内容选项，如果不指定配置文件，`mysqld`服务将会使用默认的选项。
+```bash
+[mysqld]
+datadir=/usr/local/mysql/data
+socket=/tmp/mysql.sock
+port=3306
+log-error=/usr/local/mysql/data/localhost.localdomain.err
+user=mysql
+```
+> [!NOTE]
+> `datadir`: MySQL数据目录。
+> `socket`: MySQL网络socks文件。
+> `port`: 指定MySQL监听端口。
+> `log-error`: 错误日志文件。
+> `user`: 运行MySQL服务的用户。
