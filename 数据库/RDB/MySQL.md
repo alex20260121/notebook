@@ -68,3 +68,7 @@ groupadd mysql
 ```bash
 useradd -r -g mysql -s /bin/false mysql
 ```
+- 解压归档包安装
+```bash
+tar xvf mysql-8.4.11-linux-glibc2.28-x86_64-minimal.tar.xz
+```
