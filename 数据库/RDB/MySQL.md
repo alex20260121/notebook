@@ -75,3 +75,15 @@ tar xvf mysql-8.4.11-linux-glibc2.28-x86_64-minimal.tar.xz -C /usr/local/
 > 如果不想在执行`mysql`命令时输入完整的绝对路径，可以将`/usr/local/mysql-8.4.11-linux-glibc2.28-x86_64-minimal/bin`目录作为系统环境变量导出。
 >
 > `echo "export PATH=$PATH:/usr/local/mysql-8.4.11-linux-glibc2.28-x86_64-minimal/bin" >> ~/.bashrc`
+
+## 2. 配置
+安装后设置包括创建用于导入和导出操作的安全目录、配置服务器启动选项、初始化数据目录、使用 systemd 启动 MySQL、重置 MySQL root@localhost用户帐户密码，以及运行一些测试以确保服务器正常工作。
+### 2.1. 创建用于导入和导出操作的安全目录
+创建 mysql-files 目录的主要作用是：作为文件导入/导出的安全沙箱目录，用于防止恶意的文件读写操作。它直接与 MySQL 的安全配置参数 secure_file_priv 绑定。
+```bash
+mkdir mysql-files
+chown mysql:mysql mysql-files
+chmod 750 mysql-files
+```
+> [!NOTE]
+> 当`MySQL`涉及本地文件读写操作时，MySQL会强制执行路径检查，如果 secure_file_priv 被配置为指向 mysql-files 目录（例如 /var/lib/mysql-files 或 /usr/local/mysql/mysql-files），那么涉及本地文件的所有操作只能在 mysql-files 目录下进行。如果尝试读写其他目录（如 /etc/、/var/www/ 等），MySQL 会直接拒绝并报错。
