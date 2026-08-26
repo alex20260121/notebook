@@ -5,5 +5,5 @@
   - [Linux系统概述](/操作系统/Linux/Linux系统概述.md)
 - **[数据库](/数据库/)**
   - [关系型数据库概念](/数据库/RDB/关系型数据库概念.md)
-  - [MySQL数库](/数据库/RDB/MySQL.md)
+  - [MySQL单实例安装](/数据库/RDB/MySQL/单实例安装.md)
   
