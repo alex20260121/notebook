@@ -60,3 +60,11 @@ MySQL依赖libaio库，如果本地没有安装该库，在后续初始化数据
 ```bash
 dnf -y install libaio
 ```
+- 创建`mysql`用户组
+```bash
+groupadd mysql
+```
+- 创建`mysql`用户
+```bash
+useradd -r -g mysql -s /bin/false mysql
+```
