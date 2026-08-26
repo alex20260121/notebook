@@ -55,7 +55,7 @@ MySQL支持多个平台的署安装，如Debian APT源，RedHat的YUM源，还�
 ### 1.1. 下载二进制压缩归档
 官方提供的二进制包主机包含两种安装类型；一种是包含二进制调试文件，另一种是不带二进制调试文件，后者文件大小比前者小很多，安装包带有**minimal**关键字。本文选择最小化安装版本[minimal](https://dev.mysql.com/downloads/mysql/)。
 ### 1.2. 解压安装
-MySQL依赖libaio库，如果本地没有安装该库，在后续初始化数据库目录和服务启动时会报错，本文所有关于MySQL的安装和布署步骤都在RockyLinux9.8上执行。
+MySQL依赖libaio库，如果本地没有安装该库，在后续初始化数据库目录和服务启动时会报错，本文所有关于MySQL的安装和布署步骤都在RockyLinux9.8上且用户为root下执行。
 - 安装`libaio`库
 ```bash
 dnf -y install libaio
