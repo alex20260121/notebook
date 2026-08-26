@@ -113,3 +113,4 @@ mysqld --defaults-file=mysql.cnf --initialize
 > 或者可以在配置文件中`log-error`定义的文件路径找到。
 
 ### 2.4. 配置`systemd`服务
+**systemd**提供`systemctl`命令对`mysql`服务的管理。`systemctl {start|status|stop|restart} mysqld`
