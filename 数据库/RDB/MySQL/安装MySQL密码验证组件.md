@@ -34,7 +34,7 @@ validate_password.check_user_name=1
 ```bash
 systemctl restart mysqld.service
 ```
-## 环境变量
+# 环境变量
 `validate_password`组件公开了一组系统变量，可以自定义MySQL的密策略，当密码以明文的方式出现在`sql`语句中时，该组件会检查密码是否满足当前密码策略，如果强度不足则会拒绝该密码。
 - `validate_password.policy=1`
 设置密码强度策略，默认为1，有效值范围：0、1、2对应LOW、MEDIUM、STRONG。
