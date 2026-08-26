@@ -114,3 +114,56 @@ mysqld --defaults-file=mysql.cnf --initialize
 
 ### 2.4. 配置`systemd`服务
 **systemd**提供`systemctl`命令对`mysql`服务的管理。`systemctl {start|status|stop|restart} mysqld`
+- 添加一个包含 MySQL 服务详细信息的 systemd 服务单元配置文件。该文件名为 mysqld.service，并放置在 /usr/lib/systemd/system。
+```bash
+[Unit]
+Description=MySQL Server
+Documentation=man:mysqld(8)
+Documentation=http://dev.mysql.com/doc/refman/en/using-systemd.html
+After=network.target
+After=syslog.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+User=mysql
+Group=mysql
+
+# Have mysqld write its state to the systemd notify socket
+Type=notify
+
+# Disable service start and stop timeout logic of systemd for mysqld service.
+TimeoutSec=0
+
+# Start main service
+ExecStart=/usr/local/mysql8/bin/mysqld --defaults-file=/usr/local/mysql8/etc/mysql.cnf $MYSQLD_OPTS 
+
+# Use this to switch malloc implementation
+EnvironmentFile=-/usr/local/mysql8/env/mysql
+
+# Sets open_files_limit
+LimitNOFILE = 10000
+
+Restart=on-failure
+
+RestartPreventExitStatus=1
+
+# Set environment variable MYSQLD_PARENT_PID. This is required for restart.
+Environment=MYSQLD_PARENT_PID=1
+
+PrivateTmp=false
+```
+
+- 重新装载`mysqld.service`服务单元文件
+```bash
+systemctl daemon-reload
+```
+
+- 设置开机自启动
+```bash
+systemctl enable mysqld.service --now
+```
+
+## 重置`root`密码
+此操作需要`MySQL`服务处于运行状态，并且需要用到之前[初始化数据目录](#23-初始化数据目录)生成的随机密码。
