@@ -65,3 +65,11 @@ groupadd mysql
 ```bash
 useradd -r -g mysql -s /bin/false mysql
 ```
+### 1.2. 解压缩安装包
+这一步将下载的通用二进制压缩包进行解压。
+```bash
+tar xvf mysql-8.4.11-linux-glibc2.28-x86_64-minimal.tar.xz -C /usr/local/
+```
+> [!TIPS]
+> 
+> 如果不想在执行`mysql`命令时输入完整的绝对路径，可以将`/usr/local/mysql-8.4.11-linux-glibc2.28-x86_64-minimal/bin`目录作为系统环境变量导出。
