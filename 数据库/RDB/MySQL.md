@@ -52,3 +52,5 @@ ClickHouse、Elasticsearch 或 Redis 等系统使用，但在关系型数据处�
 
 ## 1. 安装与布署
 MySQL支持多个平台的署安装，如Debian APT源，RedHat的YUM源，还可以使用通用的二进制安装[MySQL多平台布署安装](https://dev.mysql.com/downloads/),这里使用更灵活的Linux通用二进制安装，版本选择MySQL社区版8.4.11 LTS。
+### 1.1. 下载二进制压缩归档
+官方提供的二进制包主机包含两种安装类型；一种是包含二进制调试文件，另一种是不带二进制调试文件，后者文件大小比前者小很多，安装包带有**minimal**关键字。
