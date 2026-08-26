@@ -87,3 +87,21 @@ chmod 750 mysql-files
 ```
 > [!NOTE]
 > 当`MySQL`涉及本地文件读写操作时，MySQL会强制执行路径检查，如果 secure_file_priv 被配置为指向 mysql-files 目录（例如 /var/lib/mysql-files 或 /usr/local/mysql/mysql-files），那么涉及本地文件的所有操作只能在 mysql-files 目录下进行。如果尝试读写其他目录（如 /etc/、/var/www/ 等），MySQL 会直接拒绝并报错。
+### 2.2. 配置文件
+配置文件可以指定`mysqld`启动时的参数选项，如果不指定配置文件或参数选项时，`mysqld`服务启动时会使用默认参数。
+```bash
+[mysqld]
+datadir=/usr/local/mysql8/data
+socket=/tmp/mysql.sock
+port=3306
+user=mysql
+log-error=/usr/local/mysql/data/localhost.localdomain.err
+secure_file_priv=/usr/local/mysql8/mysql-files
+```
+> [!TIP]
+> 为了安全考虑，可以将该配置文件属主设为`root`用户，并且其它用户和组只有只读权限。
+>
+> `chown root:root mysql.cnf && chmod 644 mysql.cnf`
+
+### 2.3. 初始化数据目录
+安装 MySQL 后，必须初始化数据目录，其中包含mysql系统数据库及其表，包括授权表、服务器端帮助表和时区表。初始化过程还会创建 root@localhost超级用户帐户、 InnoDB系统表空间以及管理InnoDB表所需的其他数据结构。
