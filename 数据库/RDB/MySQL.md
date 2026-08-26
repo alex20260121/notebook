@@ -50,5 +50,5 @@ MySQL 是一款以
 OLTP（联机事务处理）为主、轻量稳定、生态成熟、兼顾性能与易用性的关系型数据库。虽然在极其复杂的分析型查询（OLAP）或海量非结构化数据存储上，通常会配合
 ClickHouse、Elasticsearch 或 Redis 等系统使用，但在关系型数据处理领域，它依然是绝大多数项目的首选数据库。
 
-## 安装与布署
+## 1. 安装与布署
 MySQL支持多个平台的署安装，如Debian APT源，RedHat的YUM源，还可以使用通用的二进制安装[MySQL多平台布署安装](https://dev.mysql.com/downloads/),这里使用更灵活的Linux通用二进制安装，版本选择MySQL社区版8.4.11 LTS。
