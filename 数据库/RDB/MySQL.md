@@ -50,41 +50,18 @@ MySQL 是一款以
 OLTP（联机事务处理）为主、轻量稳定、生态成熟、兼顾性能与易用性的关系型数据库。虽然在极其复杂的分析型查询（OLAP）或海量非结构化数据存储上，通常会配合
 ClickHouse、Elasticsearch 或 Redis 等系统使用，但在关系型数据处理领域，它依然是绝大多数项目的首选数据库。
 
-## 1. 安装与布署
-MySQL支持多个平台的署安装，如Debian APT源，RedHat的YUM源，还可以使用通用的二进制安装[MySQL多平台布署安装](https://dev.mysql.com/downloads/),这里使用更灵活的Linux通用二进制安装，版本选择MySQL社区版8.4.11 LTS。
-### 1.1. 下载二进制压缩归档
-官方提供的二进制包主机包含两种安装类型；一种是包含二进制调试文件，另一种是不带二进制调试文件，后者文件大小比前者小很多，安装包带有**minimal**关键字。本文选择最小化安装版本[minimal](https://dev.mysql.com/downloads/mysql/)。
-### 1.2. 解压安装
-MySQL依赖libaio库，如果本地没有安装该库，在后续初始化数据库目录和服务启动时会报错，本文所有关于MySQL的安装和布署步骤都在RockyLinux9.8上且用户为root下执行。
-- 安装`libaio`库
+## 1. 安装MySQL二进制包
+在安装二进制MySQL包时，有些系统可能并没安装相关的依赖库，需要手动提前解决相关依赖关系，比如本文在RockyLinux9.8环境少了`libaio`库。
 ```bash
 dnf -y install libaio
 ```
-- 创建`mysql`用户组
+### 1.1. 创建MySQL用户和组
+创建运行`MySQL`服务的用户和组，并且设置好相关的目录的所属。
+- 创建用户组
 ```bash
 groupadd mysql
 ```
-- 创建`mysql`用户
+- 创建用户
 ```bash
 useradd -r -g mysql -s /bin/false mysql
 ```
-- 解压归档包安装
-```bash
-tar xvf mysql-8.4.11-linux-glibc2.28-x86_64-minimal.tar.xz
-```
-## 2. 配置文件
-MySQL服务启动时将读取配置文件内容选项，如果不指定配置文件，`mysqld`服务将会使用默认的选项。
-```bash
-[mysqld]
-datadir=/usr/local/mysql/data
-socket=/tmp/mysql.sock
-port=3306
-log-error=/usr/local/mysql/data/localhost.localdomain.err
-user=mysql
-```
-> [!NOTE]
-> `datadir`: MySQL数据目录。
-> `socket`: MySQL网络socks文件。
-> `port`: 指定MySQL监听端口。
-> `log-error`: 错误日志文件。
-> `user`: 运行MySQL服务的用户。
