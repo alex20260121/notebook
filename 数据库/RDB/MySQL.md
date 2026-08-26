@@ -105,3 +105,10 @@ secure_file_priv=/usr/local/mysql8/mysql-files
 
 ### 2.3. 初始化数据目录
 安装 MySQL 后，必须初始化数据目录，其中包含mysql系统数据库及其表，包括授权表、服务器端帮助表和时区表。初始化过程还会创建 root@localhost超级用户帐户、 InnoDB系统表空间以及管理InnoDB表所需的其他数据结构。
+```bash
+mysqld --defaults-file=mysql.cnf --initialize
+```
+> [!NOTE]
+> 初始化过程中会生成随机密码，将密码保存下来，在后续的过程中将会重置`root`密码。
+
+### 2.4. 配置`systemd`服务
