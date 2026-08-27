@@ -41,4 +41,6 @@ systemctl restart mysqld.service
 - `validate_password.length=8`
 设置密码字符最小长度，取值类型为整数。
 - `validate_password.number_count=1`
-设置的密码中，必须至少包含 1 个数字字符（0-9）。只有当`validate_password.policy≥2`时才会生效。
+设置的密码中，必须至少包含 1 个数字字符（0-9）。**只有当`validate_password.policy≥2`时才会生效。**
+- `validate_password.mixed_case_count=1`
+规定密码中必须包含的大小写字母的最小数量,这里`=1`必须要1个大写字母+1个小写字母，**只有当`validate_password.policy≥2`时才会生效。**
