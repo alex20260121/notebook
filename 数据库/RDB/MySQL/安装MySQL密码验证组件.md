@@ -37,25 +37,20 @@ systemctl restart mysqld.service
 # 环境变量
 `validate_password`组件公开了一组系统变量，可以自定义MySQL的密策略，当密码以明文的方式出现在`sql`语句中时，该组件会检查密码是否满足当前密码策略，如果强度不足则会拒绝该密码。
 - `validate_password.policy=1`
-
 设置密码强度策略，默认为1，有效值范围：0、1、2对应LOW、MEDIUM、STRONG。
 
 - `validate_password.length=8`
-
 设置密码字符最小长度，取值类型为整数。
 
 - `validate_password.number_count=1`
-
 设置的密码中，必须至少包含 1 个数字字符（0-9）。
 **只有当`validate_password.policy≥2`时才会生效。**
 
 - `validate_password.mixed_case_count=1`
-
 规定密码中必须包含的大小写字母的最小数量,这里`=1`必须要1个大写字母+1个小写字母。
 **只有当`validate_password.policy≥2`时才会生效。**
 
 - `validate_password.special_char_count=1`
-
 规定密码中必须包含的特殊字符（非字母、非数字字符）的最小数量。
 设为 1 的意义：密码中必须至少包含 1 个特殊符号（例如 !、@、#、$、_、% 等）。
 **只有当`validate_password.policy≥2`时才会生效。**
