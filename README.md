@@ -8,4 +8,5 @@
   - **MySQL**
     - [MySQL单实例安装](/数据库/RDB/MySQL/单实例安装.md)
     - [MySQL密码验证组件安装](/数据库/RDB/MySQL/安装MySQL密码验证组件.md)
+    - [故障解决](/数据库/RDB/MySQL/故障解决.md)
   - [非关系型数据库概述](/数据库/NoSQL/非关系型数据库概述.md)
