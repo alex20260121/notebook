@@ -43,4 +43,4 @@ systemctl restart mysqld.service
 - `validate_password.mixed_case_count=1`: 规定密码中必须包含的大小写字母的最小数量,这里`=1`必须要1个大写字母+1个小写字母。**只有当`validate_password.policy≥2`时才会生效。**
 - `validate_password.special_char_count=1`: 规定密码中必须包含的特殊字符（非字母、非数字字符）的最小数量。设为 1 的意义：密码中必须至少包含 1个特殊符号（例如 !、@、#、$、_、% 等）。**只有当`validate_password.policy≥2`时才会生效。**
 - `validate_password.check_user_name=1`: 正/反向不能和当前用户名相同；无论大小写，密码中虽然可以包含用户名相关的部分，但只要不是完全正向或反向一致（并且满足长度、大小写、数字及特殊字符策略），即可通过，例如 Dbadmin_2026!#。
-- `validate_password.dictionary_file`: 用于指定一个密码字典文件路径，防止用户设置包含常见弱口令、常见单词或已知泄露密码的组合。默认为空字符，**只有当`validate_password.policy=2(STRONG)`时才会生效**
+- `validate_password.dictionary_file`: 用于指定一个密码字典文件绝对路径，防止用户设置包含常见弱口令、常见单词或已知泄露密码的组合。默认为空字符，**只有当`validate_password.policy=2(STRONG)`时才会生效**
