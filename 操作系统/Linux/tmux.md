@@ -14,6 +14,8 @@ tmux是一个终端复用器，可以在一个终端内切出多个`plane`并且
 |连接会话                |`tmux attach -t <session-name>`|
 |关闭/杀死指定会话       |`tmux kill-session -t <session-name>`|
 |杀死所有会话            |`tmux kill-server`|
+|重命名一个会话|`tmux rename-session -t <old> <new>`|
+|创建后台运行会话|`tmux new -s <session-name> -d`|
 
 ## 常用快捷键（在 tmux 内部使用）
 > [!TIP]
