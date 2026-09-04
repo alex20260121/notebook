@@ -14,3 +14,7 @@ tmux是一个终端复用器，可以在一个终端内切出多个`plane`并且
 |连接会话                |`tmux attach -t <session-name>`|
 |关闭/杀死指定会话       |`tmux kill-session -t <session-name>`|
 |杀死所有会话            |`tmux kill-server`|
+
+## 常用快捷键（在 tmux 内部使用）
+> [!TIP]
+> 注意：tmux 的所有快捷键都需要先按下 前缀键（Prefix），默认是 Ctrl + b。操作方式：按下 Ctrl + b 松开后，再按对应的功能键。
