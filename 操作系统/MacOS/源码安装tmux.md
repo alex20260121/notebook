@@ -36,3 +36,19 @@ sudo make install
 ```
 > [!TIP]
 > 安装完毕查看一下版本`tmux -V`
+
+## MacOS最佳体验
+`MacOS`的特定配置和性能调优，可以获得`tmux`的最佳体验。
+
+### 原生剪帖板集群
+macOS 使用 ` pbcopyv1` 和pbpaste`v2` 进行剪贴板访问。添加以下内容~/.tmux.conf即可启用 vi 快捷键绑定的复制模式剪贴板支持。
+```zsh
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "pbcopy"
+bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
+```
+### Item2控制模式
+iTerm2 通过控制模式（`flag`）原生集成了 tmux -CC。这会将 tmux 窗口和窗格直接映射到 macOS 原生的 iTerm2 标签页和分屏窗口。
+```zsh
+tmux -CC
+tmux -CC attach
+```
