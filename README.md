@@ -4,6 +4,7 @@
 ## 操作系统
 - **[Linux](/操作系统/Linux/)**
   - [tmux](/操作系统/Linux/tmux.md)
+  - [Oh-My-ZSH终端美化](/操作系统/Linux/ohmyzsh终端美化.md)
 - **[MacOS](/操作系统/MacOS)**
   - [源码编译安装tmux](/操作系统/MacOS/源码安装tmux.md)
 - **[Windows](/操作系统/Windows/)**
