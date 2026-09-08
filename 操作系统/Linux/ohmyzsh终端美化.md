@@ -58,3 +58,45 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 ```
 > [!TIP]
 > 该插件名必须在`plugins=(...)`最后一位。
+
+## 7. 安装字体
+有些主题可能包含特殊字体和符号，需要安装[Nerd-fonts](https://github.com/ryanoasis/nerd-fonts#option-3-install-script)，如果只使用系统自带的字体，像有些特殊的图形符号字体不会显示。
+> [!TIP]
+> 这里直接使用`Script`脚本安装的方法，最快速方便。
+
+- 下载脚本文件
+```bash
+curl -s https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/install.sh -o install.sh
+```
+- 查看帮助有哪些选项
+```bash
+bash install.sh --help
+```
+- 列出哪些可以安装的字体
+```bash
+bash install.sh list
+```
+- 安装指定字体
+```bash
+bash install.sh install Hack # Hack是需要安装的字体名，在bash install.sh list的列表内。
+```
+
+## 8. powerlevel10k
+[Powerlevel10k](https://github.com/romkatv/powerlevel10k) 是 Zsh 的一个主题。
+- 安装
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+```
+- 设置主题，在`~/.zshrc`找到`ZSH_THEME`
+```bash
+ZSH_THEME="powerlevel10k/powerlevel10k"
+```
+- 配置主题
+```zsh
+p10k configure
+```
+> [!NOTE]
+> 配置过程是交互式，选择/确认每一步完成配置。
+
+- 效果图
+![p10k](/操作系统/Screenshot/p10k-view.png)
