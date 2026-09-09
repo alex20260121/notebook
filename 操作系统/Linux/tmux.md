@@ -80,3 +80,9 @@ tmux session（会话）
 |`select-pane -(U、D、L、R)`|`Prefix ↑↓←→`|将焦点移至(上、下、左、右)|
 |`select-pane -t :.+`|`Prefix o`|导航至下一个窗格|
 |`resize-pane -(L、R、U、D) 10`|**—**|将窗格向（左、右、上、下）调整 10 个单元格|
+|`resize-pane -Z`|`Prefix z`|将当前窗格切换成全屏|
+|`kill-pane -t :.`|`Prefix x`|杀死当前窗格|
+|`swap-pane -s :1 -t :2 `|**—**|swap two panes|
+|`break-pane`|`Prefix !`|将窗格拆分到新窗口中|
+|`join-pane -s :2 -t :1`|**—**|将窗口合并到窗格中|
+|`display-panes`|`Prefix q`|显示窗格索引号|
