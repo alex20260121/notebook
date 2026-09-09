@@ -33,3 +33,8 @@ tmux session（会话）
 > [!NOTE]
 > `tmux`前缀(Prefix)键默认是`Ctrl+c`，可以通过配置文件修改。
 
+|COMMAND|短名|绑定快捷键|释义|
+|-------|----|----------|----|
+|`new-session -s name`|`new -s name`|**—**|创建一个命名的会话|
+|`list-sessions`|`ls`|**—**|列出所有会话|
+|`attach-session -t name`|`attach -t name`|**—**|连接一个己命名的会话|
