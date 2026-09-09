@@ -27,14 +27,16 @@ tmux session（会话）
 ```
 
 ## 命令参考
+
+> [!NOTE]
+> `tmux`前缀(Prefix)键默认是`Ctrl+c`，可以通过配置文件修改。
+
 `tmux`的命令可以从3个方式发出。1. `Shell`终端发出。2. 在 `tmux` 内部通过命令模式`(:)`发出。3. 直接通过快捷键绑定发出。
 
 ### 会话命令
 会话是 tmux 层级结构的顶层。一个会话会将多个窗口分组，即使断开连接，它也会继续在后台运行。会话在 SSH 连接断开后仍然存在，并且可以从任何终端重新连接。
-> [!NOTE]
-> `tmux`前缀(Prefix)键默认是`Ctrl+c`，可以通过配置文件修改。
 
-|命令|短名|绑定快捷键|释义|
+|命令|短名|绑定快捷键|描述|
 |:-------|:----|:----------|:----|
 |`new-session -s name`|`new -s name`|**—**|创建一个命名的会话|
 |`list-sessions`|`ls`|**—**|列出所有会话|
@@ -47,3 +49,21 @@ tmux session（会话）
 |`switch-client -t name`|**—**|`Prefix s`|以交互方式切换到另一个会话|
 |`switch-client -p`|**—**|`Prefix (`|切换至上一个会话|
 |`switch-client -n`|**—**|`Prefix )`|切换至下一个会话|
+
+### 窗口命令
+窗口是会话中的标签页。每个窗口都有自己的一组窗格，并占据整个终端空间。使用窗口可以在同一会话中组织不同的任务。
+
+|命令|绑定快捷键|描述|
+|----|----------|----|
+|`new-window -n name`|`Prefix c`|创建一个新窗口(可带名称)|
+|`rename-window name`|`Prefix ,`|重命名窗口|
+|`select-window -t :N`|`Prefix 0-9`|通过窗口索引号选择窗口|
+|`next-window`|`Prefix n`|切换下个窗口|
+|`previous-window`|`Prefix p`|切换上个窗口|
+|`last-window`|`Prefix l`|在最后两个窗口之间切换|
+|`list-windows`|`Prefix w`|交互式选择窗口，通过窗口选择器|
+|`find-window -N name`|`Prefix f`|通过名称搜索窗口|
+|`kill-window -t :N`|`Prefix &`|杀死窗口和所有窗格|
+|`move-window -t session:N`|`Prefix .`|将窗口移动到另一个会话/索引|
+|`swap-window -s N -t M`|**—**|交换两个窗口的位置|
+|`move-window -r`|**—**|重新编号窗口以消除序列中的间隙|
