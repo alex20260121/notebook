@@ -28,6 +28,7 @@ tmux session（会话）
 
 ## 命令参考
 `tmux`的命令可以从3个方式发出。1. `Shell`终端发出。2. 在 `tmux` 内部通过命令模式`(:)`发出。3. 直接通过快捷键绑定发出。
+
 ### 会话命令
 会话是 tmux 层级结构的顶层。一个会话会将多个窗口分组，即使断开连接，它也会继续在后台运行。会话在 SSH 连接断开后仍然存在，并且可以从任何终端重新连接。
 > [!NOTE]
@@ -38,3 +39,11 @@ tmux session（会话）
 |`new-session -s name`|`new -s name`|**—**|创建一个命名的会话|
 |`list-sessions`|`ls`|**—**|列出所有会话|
 |`attach-session -t name`|`attach -t name`|**—**|连接一个己命名的会话|
+|`detach-client`|**—**|`Prefix d`|分离当前会话在后台运行|
+|`rename-session -t old new`|**—**|`Prefix $`|重命名一个会话|
+|`kill-session -t name`|**—**|**—**|杀死一个会话|
+|`kill-server`|**—**|**—**|杀死`tmux`服务和所有会话|
+|`has-session -t name`|**—**|**—**|检查会话是否存在（返回 0/1）|
+|`switch-client -t name`|**—**|`Prefix s`|以交互方式切换到另一个会话|
+|`switch-client -p`|**—**|`Prefix (`|切换至上一个会话|
+|`switch-client -n`|**—**|`Prefix )`|切换至下一个会话|
