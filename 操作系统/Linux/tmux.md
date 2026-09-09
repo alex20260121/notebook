@@ -70,3 +70,13 @@ tmux session（会话）
 
 ### 窗格命令
 窗格是窗口内的分割区域。每个窗格都运行一个独立的界面。窗格可以调整大小、交换位置、缩放比例，也可以在窗口之间移动。
+
+|命令|绑定快捷键|描述|
+|:----|:----------|:----|
+|`split-window -h`|`Prefix %`|水平分割，并排显示|
+|`split-window -v`|`Prefix "`|垂直分割（上/下）|
+|`split-window -h -p 30`|**—**|分屏显示，新窗格宽度为30%。|
+|`split-window -h -c "#{pane_current_path}"`|**—**|拆分同一目录|
+|`select-pane -(U、D、L、R)`|`Prefix ↑↓←→`|将焦点移至(上、下、左、右)|
+|`select-pane -t :.+`|`Prefix o`|导航至下一个窗格|
+|`resize-pane -(L、R、U、D) 10`|**—**|将窗格向（左、右、上、下）调整 10 个单元格|
