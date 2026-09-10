@@ -86,3 +86,5 @@ tmux session（会话）
 |`break-pane`|`Prefix !`|将窗格拆分到新窗口中|
 |`join-pane -s :2 -t :1`|**—**|将窗口合并到窗格中|
 |`display-panes`|`Prefix q`|显示窗格索引号|
+|**—**|`Prefix *`|创建一个浮动窗口在平铺窗格之上|
+|**—**|`Prefix @`|将一个平铺窗格变为浮动窗口|
