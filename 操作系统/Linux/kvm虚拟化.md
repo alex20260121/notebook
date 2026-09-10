@@ -7,7 +7,7 @@
 现发行版的`Linux`操作系统一般都集成了`kvm`模块，一般执行`lsmod|grep kvm`就会输出类似`kvm_amd`或`kvm_intel`相关字符。还有需要查看一下BIOS是否开启了虚拟化的支持`egrep -c '(vmx|svm)' /proc/cpuinfo`，一般有多少核心回显对应的数字。
 
 ```bash
-sudo apt-get -y install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+sudo apt-get -y install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager qemu-img
 ```
 
 - 将用户添加到`libvirt`和`kvm`系统组，这样不需要`root`权限就可以管理虚拟化平台。
