@@ -29,3 +29,34 @@ virt-install --name Rocky-10.2-x86_64-minimal \
 --noautoconsole
 ```
 ## 配置`console`控制台
+> [!NOTE]
+> 本文档使用的`Linux`发行版均使用`Rocky Linux 10.2`。
+
+在 Rocky Linux 中，最标准、最直接的配置方式是使用 grubby 工具。请在虚拟机内按以下步骤操作：
+
+### 1. 使用 grubby 调整内核参数
+在 BLS 机制下，每个内核的启动参数都独立存放在 /boot/loader/entries/ 目录下的 .conf 文件中。直接编辑 /etc/default/grub 并不会自动修改已有的内核启动参数，且 Rocky 默认带有 rhgb quiet，导致关机、重启过程完全静默。
+- 移除静默启动参数（删掉 rhgb 和 quiet，解除日志屏蔽）：
+```zsh
+grubby --update-kernel=ALL --remove-args="rhgb quiet"
+```
+- 添加串口控制台输出（同时输出到 VNC 的 tty0 和串口的 ttyS0）：
+```zsh
+grubby --update-kernel=ALL --args="console=tty0 console=ttyS0,115200n8"
+```
+- 查看并确认修改是否成功写入：
+```zsh
+sudo grubby --info=DEFAULT
+```
+> [!TIP]
+> 检查输出中的 args= 这一行：
+> - 确认没有 rhgb 和 quiet。
+> - 确认包含 console=tty0 console=ttyS0,115200n8。
+
+### 2. 确保串口登录服务开机自启
+确认终端服务已设为开机自启：
+```zsh
+systemctl enable serial-getty@ttyS0.service --now
+```
+
+### 3. （可选）：让 GRUB 倒计时选单也显示在串口上
