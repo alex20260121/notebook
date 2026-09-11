@@ -15,3 +15,17 @@ sudo apt-get -y install qemu-kvm libvirt-daemon-system libvirt-clients bridge-ut
 sudo usermod -aG libvirt $USER
 sudo usermod -aG kvm $USER
 ```
+## 创建虚拟机
+使用`VNC`图形连接安装。
+
+```zsh
+virt-install --name Rocky-10.2-x86_64-minimal \                                                                                
+--vcpu 2 \
+--memory 4096 \
+--disk virtualization/disks/Rocky-10.2-x86_64-minimal.qcow2,size=20,format=qcow2 \
+--network network=default \
+--location virtualization/images/Rocky-10.2-x86_64-minimal.iso \
+--graphics vnc,port=5901,listen=0.0.0.0 \
+--noautoconsole
+```
+## 配置`console`控制台
