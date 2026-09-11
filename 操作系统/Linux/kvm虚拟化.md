@@ -79,3 +79,5 @@ virsh console --domain <虚拟机名>
 ```zsh
 reboot
 ```
+- 成功效果图
+![reboot](/操作系统/Screenshot/reboot.png)
