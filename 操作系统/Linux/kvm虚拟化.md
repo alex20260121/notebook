@@ -60,3 +60,22 @@ systemctl enable serial-getty@ttyS0.service --now
 ```
 
 ### 3. （可选）：让 GRUB 倒计时选单也显示在串口上
+如果希望在系统还没进内核之前，连 GRUB 的倒计时选单也能在 virsh console 看到，需要再做一步：
+- 编辑`/etc/default/grub`，在文件未尾添加:
+```zsh
+GRUB_TERMINAL="console serial"
+GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"
+```
+- 更新 GRUB 配置（现代 Rocky 系统 BIOS 与 UEFI 统一使用该路径）：
+```zsh
+grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+### 4. 重启测试
+- 保持宿主机上的控制台打开:
+```zsh
+virsh console --domain <虚拟机名>
+```
+- 在虚拟机内重启:
+```zsh
+reboot
+```
