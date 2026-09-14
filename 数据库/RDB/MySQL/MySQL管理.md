@@ -23,6 +23,21 @@ REVOKE DELETE ON app_db.* FROM 'app_user'@'192.168.1.%';
 -- 刷新权限使其生效
 FLUSH PRIVILEGES;
 ```
+- 授于最高权限(相当于`root`)
+```sql
+-- 查看所有用户及其允许的 host
+SELECT user, host FROM mysql.user WHERE user = '你的用户名';
+
+-- 1. 赋予所有库表的所有权限，并允许其转授权限
+GRANT ALL PRIVILEGES ON *.* TO 'devuser'@'%' WITH GRANT OPTION;
+
+-- 2. 刷新权限使其立即生效
+FLUSH PRIVILEGES;
+```
+> [!TIP]
+> 核心参数说明：
+>   - ON *.*：表示对所有数据库、所有数据表生效。
+>   - WITH GRANT OPTION：允许该用户像 root 一样，给其他用户创建账号并授权（非常关键，不加则无法管理其他用户）。
 
 - 查看与删除用户
 ```sql
