@@ -20,5 +20,4 @@
       - [单实例安装](/数据库/RDB/MySQL/单实例安装.md)
       - [常见故障](/数据库/RDB/MySQL/故障排查.md)
       - [密码验证组件](/数据库/RDB/MySQL/密码验证组件.md)
-      - [系统变量和状态变量](/数据库/RDB/MySQL/系统变量和状态变量.md)
-      - [SQL语句](/数据库/RDB/MySQL/sql语句.md)
+      - [MySQL管理](/数据库/RDB/MySQL/sql语句.md)
