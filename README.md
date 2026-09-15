@@ -8,6 +8,7 @@
   - [kvm虚拟化平台](/操作系统/Linux/kvm虚拟化.md)
 - **[MacOS](/操作系统/MacOS)**
   - [源码编译安装tmux](/操作系统/MacOS/源码安装tmux.md)
+  - [MacOS系统管理](/操作系统/MacOS/MacOS系统管理.md)
 - **[Windows](/操作系统/Windows/)**
   - [免费激活安装Offiece](/操作系统/Windows/免费激活安装Offiece.md)
 
