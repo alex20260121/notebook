@@ -16,6 +16,3 @@ systemextensionsctl list
 ```zsh
 systemextensionsctl uninstall <TeamID> <BundleID>
 ```
-
-### 激活扩展
-在两个版本同时运行，当前活跃的还在旧版本之上，如果需要使用新版本的扩展，则需要激活。
