@@ -39,7 +39,7 @@ tar zxvf sing-box-<version>-linux-amd64.tar.gz -C /usr/local/
   "outbounds": [], // 出站
   "route": {}, // 路由模块，决定流量规则如何出站
   "services": [], // 让 sing-box 脱离了“单纯的代理内核”，成为一个可以挂载控制面板、自建 VPN 中继（DERP）、网络设备共享（USB/IP）及提供开发辅助服务的通用网络平台
-  "experimental": {} // 实验性功能，比如配置缓存开发和缓存路径、配置ui面板。
+  "experimental": {} // 实验性功能，比如配置缓存开关和缓存路径、配置ui面板。
 }
 ```
 > [!TIP]
