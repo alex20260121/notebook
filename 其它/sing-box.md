@@ -10,6 +10,7 @@ sing-box作为一款网络代理平台，高度模块化的设计，对于刚上
 [下载地址](https://github.com/SagerNet/sing-box/releases#release-v1.14.1)，有各平台二进制安装包。
 > [!TIP]
 > 本文操作系统平台为`Kylin v10 C86架构桌面版`直接选`Linux amd x86_64`二进制安装包。
+> 并且选择的`sing-box`为v1.14.1版本。
 
 - 直接解压安装:
 ```bash
