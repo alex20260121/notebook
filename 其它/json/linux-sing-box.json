@@ -10,7 +10,7 @@
     ],
     "rules": [
         {"rule_set": "geosite-cn", "action": "route", "server": "aliyun-DoT"},
-        {"domain": ["ocisg.156753.xyz"], "action": "route", "server": "aliyun-DoT"}
+        {"domain": ["example.domain.com"], "action": "route", "server": "aliyun-DoT"}
     ],
     "final": "google-DoT",
     "strategy": "prefer_ipv4"
