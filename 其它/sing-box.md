@@ -45,4 +45,4 @@ tar zxvf sing-box-<version>-linux-amd64.tar.gz -C /usr/local/
 > [!TIP]
 > [官方配置文档](https://sing-box.sagernet.org/zh/configuration/)。
 >
-> 本文作者可套用的[配置文件示例](/其它/json/sing-box.json)。
+> 本文作者可套用的[配置文件示例](/其它/json/linux-sing-box.json)。
