@@ -117,3 +117,62 @@ tmux show -gw
 > `tmux show -<flag> <选项名>`可以查看具体选项对应的值。`tmux show -g visual-bell off`
 >
 > `tmux set -<flag> <选项名> <选项值>`可修改当前选项的值。`tmux set -g visual-bell on`
+
+### 配置文件示例
+```ini
+# 启用鼠标控制
+set mouse on
+
+# 窗格编号显示时间，以ms为单位
+set -w display-panes-time 5000
+
+# 状态栏消息显示时间以ms为单位
+set -g display-time 5000
+
+# 设置'escape-time'超时时间
+set -s escape-time 0
+
+# 设置状态栏位置[bottom(默认), top]
+set -g status-position bottom
+
+# 中间窗口列表对齐方式(left, center, right, absolute-center)
+set -g status-justify left
+
+# 全局配色（深灰底、浅白字）
+set -g status-style bg=default,fg=colour7
+
+# 状态栏刷新间隔时间单位：秒
+set -g status-interval 1
+
+# 普通窗口（淡灰色）
+set -g window-status-format "#[fg=#6c7086]#I:#W"
+
+# 当前活动窗口（亮黄色、加粗显示）
+set -g window-status-current-format "#[fg=#f9e2af,bold][#I:#W*]"
+
+# 中间窗口标签列表
+set -g window-status-separator " "
+
+# 右侧区域：显示主机名与当前精确时间
+set -g status-right-length 100
+set -g status-right "#[fg=#a6adc8]%Y-%m-%d #[fg=#f9e2af,bold]%H:%M:%S #[fg=#a6e3a1]#h "
+
+# 左侧区域：扩大长度限制，显示当前 Session 名称（青色高亮）
+set -g status-left-length 50
+set -g status-left "#[fg=#89b4fa,bold][#S] [#(whoami)] #[default]"
+
+# 窗格边框部份
+# 非活动窗格的边框色和样式
+set -g pane-border-style fg=colour3,bg=default
+set -g pane-active-border-style fg=colour1,bold,bg=default
+
+# 边框类型(single, double, heavy, simple, number)
+set -g pane-border-lines heavy
+
+# 窗格边框标题开关与位置(off, top, bottom)
+set -g pane-border-status top
+
+# 窗格边框标题显示格式
+set -g pane-border-format " #[bold]#{?pane_active,#[fg=#fab387],#[fg=#6c7086]}[ #{pane_index} : #{pane_current_command} ]#[default] "
+
+```
