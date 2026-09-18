@@ -88,3 +88,14 @@ tmux session（会话）
 |`display-panes`|`Prefix q`|显示窗格索引号|
 |**—**|`Prefix *`|创建一个浮动窗口在平铺窗格之上|
 |**—**|`Prefix @`|将一个平铺窗格变为浮动窗口|
+
+## 配置文件
+配置文件是一组tmux命令，指定配置文件用`-f`选项，查找优先级顺序`(/etc/tmux.conf)` --> `$HOME/tmux.conf`。官方文档也有明确说明配置的影响范围：
+|命令/参数|范围/层级|影响说明|示例|
+|:--------|:--------|:-------|:---|
+|`set -s`|`Server`级别|整个`tmux`进程下的`session`,`window`,`pane`|`set -s escape-time 0`|
+|`set -g`|全局默认值(Global)`|所有新建的 Session / Window 的默认模板。如果某个 Session 没单独设置，就会继承此项。|`set -g prefix C-b`|
+|`set -w`|窗口级别|特定的 Window 或（配合 -g 时）所有 Window 的默认设置。|`set -wg mode-keys vi`|
+|`set -p`|窗格级别|特定的 Pane（面板）。粒度最细。|`set -p synchronize-panes on`|
+> [!TIP]
+> 平常在 ~/.tmux.conf 里写的最多的 set -g，本质上是设置全局默认行为。
