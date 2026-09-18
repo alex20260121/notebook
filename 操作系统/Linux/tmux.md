@@ -99,3 +99,21 @@ tmux session（会话）
 |`set -p`|窗格级别|特定的 Pane（面板）。粒度最细。|`set -p synchronize-panes on`|
 > [!TIP]
 > 平常在 ~/.tmux.conf 里写的最多的 set -g，本质上是设置全局默认行为。
+### 显示配置选项
+在终端输入`tmux show <flag>`可以显示配置选项:
+- 服务器级别(列出所有选项):
+```zsh
+tmux show -s
+```
+- 全局选项:
+```zsh
+tmux show -g
+```
+- 全局窗口选项:
+```zsh
+tmux show -gw
+```
+> [!TIP]
+> `tmux show -<flag> <选项名>`可以查看具体选项对应的值。`tmux show -g visual-bell off`
+>
+> `tmux set -<flag> <选项名> <选项值>`可修改当前选项的值。`tmux set -g visual-bell on`
