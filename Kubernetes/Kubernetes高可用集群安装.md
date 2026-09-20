@@ -1,6 +1,10 @@
 # Kubernetes高可用集群安装
+
+> [!NOTE]
+> 本文安装集群的OS发行版为`Rocky Linux 10.2 x86_64`
+
 集群安装的方式有很多种二进制、`kubeadm`、还有第三方集群安装工具，本文使用官方`kubeadm`安装工具。
-## 1. 安装前置条件
+## 1. 安装`kubeadm`
 安装`Kubernetes`集群需要满足一定的条件：
 - 兼容`Kubernetes`指令的`Linux`操作系统(Debian、Red Hat);
 - 至少2GB的内存大小;
@@ -28,3 +32,20 @@
 |TCP|入站|10256|kube-proxy|自身、负载均衡器|
 |TCP|入站|30000-32767|NodePort Services†|所有|
 |UDP|入站|30000-32767|NodePort Services†|所有|
+
+### 1.2 查看MAC地址唯一性
+```zsh
+ip link
+```
+
+### 1.3 查看主机`product_id`唯一性
+```zsh
+cat /sys/class/dmi/id/product_uuid
+```
+### 1.4 关闭交换分区
+```zsh
+swapoff -a
+```
+> [!TIP]
+> 或者直接在`/etc/fstab`开机自动挂载表下注释掉`SWAP`交换分区。
+
