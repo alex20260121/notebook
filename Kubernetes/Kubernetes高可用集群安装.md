@@ -150,3 +150,21 @@ mkdir mkdir -pv /opt/cni/bin && tar zxvf cni-plugins-linux-amd64-v1.9.1.tgz -C /
 ```
 
 #### 1.3.5 配置`containerd`
+`containerd`默认配置文件路径`/etc/containerd/config.toml`，配置文件语法格式分**`1.x`**版本和**`2.x`**版本，要注意区分否则语法不一样，配置文件不生效。
+- 打印默认配置文件:
+```zsh
+mkdir /etc/containerd && containerd config default > /etc/containerd/config.toml
+```
+- 将 `runc` 配置为使用 `systemd CGroup` 驱动:
+```toml
+          [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+            BinaryName = ''
+            CriuImagePath = ''
+            CriuWorkPath = ''
+            IoGid = 0
+            IoUid = 0
+            NoNewKeyring = false
+            Root = ''
+            ShimCgroup = ''
+            SystemdCgroup = true
+```
