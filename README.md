@@ -22,5 +22,8 @@
       - [常见故障](/数据库/RDB/MySQL/故障排查.md)
       - [密码验证组件](/数据库/RDB/MySQL/密码验证组件.md)
 
+## Kubernetes
+- **[Kubernetes高可用集群安装](/Kubernetes/Kubernetes高可用集群安装.md)**
+
 ## 其它
 - **[sing-box](/其它/sing-box.md)**
