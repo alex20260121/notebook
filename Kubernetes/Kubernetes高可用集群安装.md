@@ -12,11 +12,11 @@
 |Kubernetes-master-node-A1|192.168.122.5|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
 |Kubernetes-master-node-A2|192.168.122.6|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
 |Kubernetes-master-node-A3|192.168.122.7|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-worker-node-A1|192.168.122.8|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|loader-blancer-A|192.168.122.11|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|loader-blander-B|192.168.122.12|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|Kubernetes-worker-node-A1|192.168.122.8|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
+|Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
+|Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
+|loader-blancer-A|192.168.122.11|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|负载均衡器|
+|loader-blander-B|192.168.122.12|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|负载均衡器|
 
 ## 1. 安装`kubeadm`
 
@@ -148,3 +148,5 @@ install -m 755 runc.amd64 /usr/local/sbin/runc
 ```zsh
 mkdir mkdir -pv /opt/cni/bin && tar zxvf cni-plugins-linux-amd64-v1.9.1.tgz -C /opt/cni/bin
 ```
+
+#### 1.3.5 配置`containerd`
