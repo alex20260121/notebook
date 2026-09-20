@@ -10,7 +10,13 @@
 |主机名|主机网络|主机MAC地址|主机UUID|集群平面|
 |:-----|:-------|:----------|:-------|:-------|
 |Kubernetes-master-node-A1|192.168.122.5|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-
+|Kubernetes-master-node-A2|192.168.122.6|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|Kubernetes-master-node-A3|192.168.122.7|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|Kubernetes-worker-node-A1|192.168.122.8|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|loader-blancer-A|192.168.122.11|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
+|loader-blander-B|192.168.122.12|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
 
 ## 1. 安装`kubeadm`
 
@@ -63,3 +69,82 @@ swapoff -a
 > 或者直接在`/etc/fstab`开机自动挂载表下注释掉`SWAP`交换分区。
 
 ### 1.3 安装容器运行时
+默认情况下`Linux`内核不允许数据包在不同网络接口之间转发，得先启用IPv4之间转发:
+```zsh
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.ipv4.ip_forward = 1
+EOF
+```
+- 应用 sysctl 参数而不重新启动:
+```zsh
+sysctl --system
+```
+
+- 验证参数:
+```zsh
+sysctl net.ipv4.ip_forward
+```
+
+#### 1.3.1 安装`containerd`
+
+[下载](https://github.com/containerd/containerd/releases/tag/v2.4.0)二进制安装包，解压安装:
+```zsh
+tar zxvf containerd-2.4.0-linux-amd64.tar.gz -C /usr/local/
+```
+
+#### 1.3.2 `systemd`服务
+```ini
+# Copyright The containerd Authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[Unit]
+Description=containerd container runtime
+Documentation=https://containerd.io
+After=network.target dbus.service
+
+[Service]
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart=/usr/local/bin/containerd
+
+Type=notify
+Delegate=yes
+KillMode=process
+Restart=always
+RestartSec=5
+
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNPROC=infinity
+LimitCORE=infinity
+
+# Comment TasksMax if your systemd version does not supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+OOMScoreAdjust=-999
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### 1.3.3 安装`runc`
+[下载](https://github.com/opencontainers/runc/releases)`runc`二进制安装包、解压安装：
+```zsh
+install -m 755 runc.amd64 /usr/local/sbin/runc
+```
+
+#### 1.3.4 安装`CNI`
+[下载](https://github.com/containernetworking/plugins/releases)`CNI`二进制安装包、解压安装:
+```zsh
+mkdir mkdir -pv /opt/cni/bin && tar zxvf cni-plugins-linux-amd64-v1.9.1.tgz -C /opt/cni/bin
+```
