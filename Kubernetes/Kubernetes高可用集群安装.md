@@ -13,6 +13,7 @@
 
 
 ## 1. 安装`kubeadm`
+
 安装`Kubernetes`集群需要满足一定的条件：
 - 兼容`Kubernetes`指令的`Linux`操作系统(Debian、Red Hat);
 - 至少2GB的内存大小;
@@ -22,6 +23,7 @@
 - 集群中主机的端口必须在防火墙端放行;
 
 ### 1.1 集群端口
+
 - 控制平面:
 
 |协议|方向|端口|服务|使用者|
@@ -42,15 +44,18 @@
 |UDP|入站|30000-32767|NodePort Services†|所有|
 
 ### 1.2 查看MAC地址唯一性
+
 ```zsh
 ip link
 ```
 
 ### 1.3 查看主机`product_id`唯一性
+
 ```zsh
 cat /sys/class/dmi/id/product_uuid
 ```
 ### 1.4 关闭交换分区
+
 ```zsh
 swapoff -a
 ```
