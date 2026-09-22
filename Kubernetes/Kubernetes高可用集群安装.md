@@ -263,14 +263,105 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ```
 
 ## 3. 高可用及负载均衡器
-`Kubernetes`高可用负载均衡的整体架构为:
-- 前端流量入口，多选择性，目前所有的七层或四层流量代理软件很多如：`Nginx`、`HAProxy`...等，本文档使用`Nginx`。
-- 网关路由选择`KeepAlive`为前端流量代理提供`VIP`。
+这里的高可用负载均衡指的是对`Kubernetes`集群的控制平面组件`(api-server)`和`etcd`，这两个控制平面的组件，这两组件可以单独拆开布署，本文档控制平面的组件全部放在一起。
+
+- `nginx`作为整个`api-server`前端流量入口的负载均衡器;
+- `KeepAlived`为`nginx`负载均衡器提供一个由可配置的健康检查机制管理的`VIP`，当一台主机网络不可用时，`VIP`会飘移到另一台主机上继续提供服务。
 
 ### 3.1 安装组件
-因为`nginx`要用到反向代理，所以要安装`stream`模块其它依赖都会自动安装。
+因为`nginx`要用到反向代理，所以要安装`upstream`模块其它依赖都会自动安装。
 ```zsh
 dnf -y install nginx-mod-stream-2:1.26.3-6.el10_2.6.x86_64 keepalived-2.2.8-9.el10.x86_64
 ```
 
-### 3.2 配置`Nginx`
+### 3.2 配置`keepalived`
+```ini
+! /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+global_defs {
+    router_id LVS_DEVEL
+}
+vrrp_script check_apiserver {
+  script "/etc/keepalived/check_apiserver.sh"
+  interval 3
+  weight -2
+  fall 10
+  rise 2
+}
+
+vrrp_instance VI_1 {
+    state 
+    interface ens3
+    virtual_router_id 51
+    priority 100
+    authentication {
+        auth_type PASS
+        auth_pass 42
+    }
+    virtual_ipaddress {
+        192.168.122.100
+    }
+    track_script {
+        check_apiserver
+    }
+}
+```
+
+### 3.3 `KeepAlived`健康检查脚本
+在`KeepAlied`配置文件定义好的路径下编辑`/etc/keepalived/check_apiserver.sh`:
+
+```bash
+#!/bin/sh
+
+errorExit() {
+    echo "*** $*" 1>&2
+    exit 1
+}
+APISERVER_DEST_PORT=16443
+
+curl -sfk --max-time 2 https://localhost:${APISERVER_DEST_PORT}/healthz -o /dev/null || errorExit "Error GET https://localhost:${APISERVER_DEST_PORT}/healthz"
+```
+
+### 3.4 配置`Nginx`
+使用 upstream 块定义后端 API 服务器集群，并在 server 块中配置反向代理转发请求。配置文件路径: `/etc/nginx/conf.d/k8s-apiserver.conf`。
+```ini
+# 后端 API 服务器集群
+upstream k8s-apiserver{
+  server 192.168.122.5:6443 weight=3 max_fails=3 fail_timeout=10s;
+  server 192.168.122.6:6443 weight=2 max_fails=3 fail_timeout=10s;
+  
+  # 备用服务器(当其它服务器全部不可用时)
+  server 192.168.122.7:6443 backup;
+}
+
+server {
+  listen 16443;
+
+  # 客户端最大请求体大小限制10M
+  client_max_body_size 10M;
+
+  location / {
+    proxy_pass http://k8s-apiserver;
+
+    # 传递真实客户端IP及协议头
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # 超时设置
+    proxy_connect_timeout 5s;
+    proxy_read_timeout 60s;
+    proxy_send_timeout 60s;
+    access_log off;
+    # 启用 K8s 专属日志文件，并使用上面定义的格式
+    access_log /var/log/nginx/k8s_apiserver_access.log main;
+    error_log /var/log/nginx/k8s_apiserver_error.log warn;
+  }
+}
+```
+
+### 3.5 配置开机启动
+```bash
+
+```
