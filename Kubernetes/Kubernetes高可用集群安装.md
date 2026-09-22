@@ -218,7 +218,7 @@ yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 
 - 设置`kubelet`开机启动:
 ```zsh
-systemctl enable kubelet --now
+systemctl enable kubelet.service --now
 ```
 > [!TIP]
 > 在集群没安装好之前`kubelet`会进入一个循环重启过程，直到集群准备就绪。
@@ -237,16 +237,27 @@ dnf -y install chronyd
 
 ### 2.2 配置文件
 - 主节点服务配置文件:
-```conf
+```ini
 # 包含阿里云时间同步域名，最小轮询间隔和最大轮询间隔。
-server ntp.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp10.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp11.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp12.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp7.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp8.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-server ntp9.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
-
+server ntp.aliyun.com minpoll 4 maxpoll 10 iburst
 # 允许时间同步的客户端
 allow 192.168.122.0/24
+```
+- 从节点服务配置文件:
+```ini
+# 指向主节点的`chronyd`服务
+server 192.168.122.5 iburst
+```
+- 重启主从`chronyd`服务:
+```zsh
+systemctl restart chronyd.service
+```
+- 查看时钟源同步状态：
+```zsh
+chronyc sources
+
+# 如下，*代表选中使用该时钟源。
+MS Name/IP address         Stratum Poll Reach LastRx Last sample
+===============================================================================
+^* 203.107.6.88                  2   4   377    11  -3551us[-5679us] +/-   35ms
 ```
