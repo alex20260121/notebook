@@ -1,6 +1,6 @@
 # Kubernetes高可用集群安装
 
-> [!NOTE]
+> [!TIP]
 > 本文安装集群的OS发行版为`Rocky Linux 10.2 x86_64`
 
 集群安装的方式有很多种二进制、`kubeadm`、还有第三方集群安装工具，本文使用官方`kubeadm`安装工具。
@@ -191,7 +191,7 @@ systemctl enable containerd.service --now
 ```zsh
 sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
 ```
-> [!NOTE]
+> [!TIP]
 > 修改完之`selinux`配置文件后需要重启生效`reboot`
 
 - 添加 Kubernetes 的 yum 仓库:
@@ -206,7 +206,7 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v1.37/rpm/repodata/repomd.xml.key
 exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
 ```
-> [!NOTE]
+> [!TIP]
 > `exclude`包含的值，在`yum`或`dnf`升级时会被锁定，不会跟随升级。
 
 - 安装:
@@ -223,4 +223,4 @@ systemctl enable kubelet --now
 > [!TIP]
 > 在集群没安装好之前`kubelet`会进入一个循环重启过程，直到集群准备就绪。
 
-
+## 2. 安装时间同步服务
