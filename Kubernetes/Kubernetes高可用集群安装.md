@@ -68,7 +68,7 @@ swapoff -a
 > [!TIP]
 > 或者直接在`/etc/fstab`开机自动挂载表下注释掉`SWAP`交换分区。
 
-### 1.3 安装容器运行时
+### 1.5 安装容器运行时
 默认情况下`Linux`内核不允许数据包在不同网络接口之间转发，得先启用IPv4之间转发:
 ```zsh
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
@@ -85,14 +85,14 @@ sysctl --system
 sysctl net.ipv4.ip_forward
 ```
 
-#### 1.3.1 安装`containerd`
+#### 1.5.1 安装`containerd`
 
 [下载](https://github.com/containerd/containerd/releases/tag/v2.4.0)二进制安装包，解压安装:
 ```zsh
 tar zxvf containerd-2.4.0-linux-amd64.tar.gz -C /usr/local/
 ```
 
-#### 1.3.2 `systemd`服务
+#### 1.5.2 `systemd`服务
 ```ini
 # Copyright The containerd Authors.
 #
@@ -137,19 +137,19 @@ OOMScoreAdjust=-999
 WantedBy=multi-user.target
 ```
 
-#### 1.3.3 安装`runc`
+#### 1.5.3 安装`runc`
 [下载](https://github.com/opencontainers/runc/releases)`runc`二进制安装包、解压安装：
 ```zsh
 install -m 755 runc.amd64 /usr/local/sbin/runc
 ```
 
-#### 1.3.4 安装`CNI`
+#### 1.5.4 安装`CNI`
 [下载](https://github.com/containernetworking/plugins/releases)`CNI`二进制安装包、解压安装:
 ```zsh
 mkdir mkdir -pv /opt/cni/bin && tar zxvf cni-plugins-linux-amd64-v1.9.1.tgz -C /opt/cni/bin
 ```
 
-#### 1.3.5 配置`containerd`
+#### 1.5.5 配置`containerd`
 `containerd`默认配置文件路径`/etc/containerd/config.toml`，配置文件语法格式分**`1.x`**版本和**`2.x`**版本，要注意区分否则语法不一样，配置文件不生效。
 - 打印默认配置文件:
 ```zsh
@@ -168,3 +168,21 @@ mkdir /etc/containerd && containerd config default > /etc/containerd/config.toml
   ShimCgroup = ''
   SystemdCgroup = true
 ```
+
+#### 1.5.6 配置pause镜像
+配置特定版本的沙箱(pause)镜像:
+```toml
+[plugins.'io.containerd.cri.v1.images'.pinned_images]
+  sandbox = 'registry.k8s.io/pause:3.10.2'
+```
+
+- 重载`systemd`:
+```zsh
+systemctl daemon-reload
+```
+
+- 设置为开机启动:
+```zsh
+systemctl enable containerd.service --now
+```
+
