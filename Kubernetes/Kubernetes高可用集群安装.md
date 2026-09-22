@@ -16,7 +16,7 @@
 |Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
 |Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
 |loader-blancer-A|192.168.122.11|52:54:00:f4:f0:49|0ee442fc-52fe-42f1-bcc4-693e6ede0735|负载均衡器|
-|loader-blander-B|192.168.122.12|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|负载均衡器|
+|loader-blander-B|192.168.122.12|52:54:00:d3:13:04|34f71325-bfa5-4c9b-ba61-d35e3ab2416c|负载均衡器|
 
 ## 1. 安装`kubeadm`
 
