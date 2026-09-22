@@ -186,3 +186,26 @@ systemctl daemon-reload
 systemctl enable containerd.service --now
 ```
 
+#### 1.5.7 安装`kubeadm`、`kubectl`、`kubelet`
+- 关闭`SElinux`:
+```zsh
+sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+```
+> [!NOTE]
+> 修改完之`selinux`配置文件后需要重启生效`reboot`
+
+- 添加 Kubernetes 的 yum 仓库:
+```zsh
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.37/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.37/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+EOF
+```
+> [!NOTE]
+> `exclude`包含的值，在`yum`或`dnf`升级时会被锁定，不会跟随升级。
+
