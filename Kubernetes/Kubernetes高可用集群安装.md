@@ -213,6 +213,9 @@ EOF
 ```zsh
 yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 ```
+> [!TIP]
+> 这里的`--disableexcludes=kubernetes`表示临时关闭`kubernetes`软件源的`exclude`规则。
+
 - 设置`kubelet`开机启动:
 ```zsh
 systemctl enable kubelet --now
