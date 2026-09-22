@@ -232,5 +232,21 @@ Kubernetes 本质上是一个高度复杂的分布式系统，节点之间的时
 > 为了更好的区分集群内时间同步主机的角色，这里直接称向外网同步时间的主机为"主节点"，其它向这台"主节点"同步的机器为"从节点"。
 
 ```zsh
+dnf -y install chronyd
+```
 
+### 2.2 配置文件
+- 主节点服务配置文件:
+```conf
+# 包含阿里云时间同步域名，最小轮询间隔和最大轮询间隔。
+server ntp.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp10.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp11.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp12.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp7.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp8.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+server ntp9.cloud.aliyuncs.com minpoll 4 maxpoll 10 iburst
+
+# 允许时间同步的客户端
+allow 192.168.122.0/24
 ```
