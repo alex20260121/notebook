@@ -321,6 +321,7 @@ APISERVER_DEST_PORT=16443
 
 curl -sfk --max-time 2 https://localhost:${APISERVER_DEST_PORT}/healthz -o /dev/null || errorExit "Error GET https://localhost:${APISERVER_DEST_PORT}/healthz"
 ```
+添加脚本执行权限`chmod 777 /etc/keepalived/check_apiserver.sh`
 
 ### 3.4 配置`Nginx`
 使用 upstream 块定义后端 API 服务器集群，并在 server 块中配置反向代理转发请求。配置文件路径: `/etc/nginx/conf.d/k8s-apiserver.conf`。
@@ -363,5 +364,7 @@ server {
 
 ### 3.5 配置开机启动
 ```bash
-
+systemctl enable keepalived.service --now && systemctl enable nginx.service --now
 ```
+
+## 创建集群
