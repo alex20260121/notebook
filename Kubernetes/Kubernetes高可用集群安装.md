@@ -15,7 +15,7 @@
 |Kubernetes-worker-node-A1|192.168.122.8|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
 |Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
 |Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
-|loader-blancer-A|192.168.122.11|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|负载均衡器|
+|loader-blancer-A|192.168.122.11|52:54:00:f4:f0:49|0ee442fc-52fe-42f1-bcc4-693e6ede0735|负载均衡器|
 |loader-blander-B|192.168.122.12|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|负载均衡器|
 
 ## 1. 安装`kubeadm`
@@ -261,3 +261,16 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 ===============================================================================
 ^* 203.107.6.88                  2   4   377    11  -3551us[-5679us] +/-   35ms
 ```
+
+## 3. 高可用及负载均衡器
+`Kubernetes`高可用负载均衡的整体架构为:
+- 前端流量入口，多选择性，目前所有的七层或四层流量代理软件很多如：`Nginx`、`HAProxy`...等，本文档使用`Nginx`。
+- 网关路由选择`KeepAlive`为前端流量代理提供`VIP`。
+
+### 3.1 安装组件
+因为`nginx`要用到反向代理，所以要安装`stream`模块其它依赖都会自动安装。
+```zsh
+dnf -y install nginx-mod-stream-2:1.26.3-6.el10_2.6.x86_64 keepalived-2.2.8-9.el10.x86_64
+```
+
+### 3.2 配置`Nginx`
