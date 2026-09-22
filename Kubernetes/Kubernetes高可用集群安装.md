@@ -209,3 +209,15 @@ EOF
 > [!NOTE]
 > `exclude`包含的值，在`yum`或`dnf`升级时会被锁定，不会跟随升级。
 
+- 安装:
+```zsh
+yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+```
+- 设置`kubelet`开机启动:
+```zsh
+systemctl enable kubelet --now
+```
+> [!TIP]
+> 在集群没安装好之前`kubelet`会进入一个循环重启过程，直到集群准备就绪。
+
+
