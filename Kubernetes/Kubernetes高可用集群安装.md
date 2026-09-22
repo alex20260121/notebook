@@ -157,14 +157,14 @@ mkdir /etc/containerd && containerd config default > /etc/containerd/config.toml
 ```
 - 将 `runc` 配置为使用 `systemd CGroup` 驱动:
 ```toml
-          [plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
-            BinaryName = ''
-            CriuImagePath = ''
-            CriuWorkPath = ''
-            IoGid = 0
-            IoUid = 0
-            NoNewKeyring = false
-            Root = ''
-            ShimCgroup = ''
-            SystemdCgroup = true
+[plugins.'io.containerd.cri.v1.runtime'.containerd.runtimes.runc.options]
+  BinaryName = ''
+  CriuImagePath = ''
+  CriuWorkPath = ''
+  IoGid = 0
+  IoUid = 0
+  NoNewKeyring = false
+  Root = ''
+  ShimCgroup = ''
+  SystemdCgroup = true
 ```
