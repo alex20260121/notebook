@@ -10,11 +10,11 @@
 |主机名|主机网络|主机MAC地址|主机UUID|集群平面|
 |:-----|:-------|:----------|:-------|:-------|
 |Kubernetes-master-node-A1|192.168.122.5|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-master-node-A2|192.168.122.6|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-master-node-A3|192.168.122.7|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|控制平面|
-|Kubernetes-worker-node-A1|192.168.122.8|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
-|Kubernetes-worker-node-A2|192.168.122.9|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
-|Kubernetes-worker-node-A3|192.168.122.10|52:54:00:58:65:1e|aba8c4ec-44c7-4655-8a74-c4e8728d0fcb|工作负载|
+|Kubernetes-master-node-A2|192.168.122.6|52:54:00:66:80:03|16fe1979-e27c-4c60-b8b8-e526a9803896|控制平面|
+|Kubernetes-master-node-A3|192.168.122.7|52:54:00:B7:3A:B0|99e360b9-68d6-454e-93e3-ea7a82078cf5|控制平面|
+|Kubernetes-worker-node-A1|192.168.122.8|52:54:00:bc:02:33|de8d9222-ba57-40af-b194-71503e4c763d|工作负载|
+|Kubernetes-worker-node-A2|192.168.122.9|52:54:00:fa:2a:e0|bd1e6185-3503-4e8e-a050-e27235da1253|工作负载|
+|Kubernetes-worker-node-A3|192.168.122.10|52:54:00:03:a6:b7|f5199ee2-4bf8-4e42-9663-fb35eadbcdd7|工作负载|
 |loader-blancer-A|192.168.122.11|52:54:00:f4:f0:49|0ee442fc-52fe-42f1-bcc4-693e6ede0735|负载均衡器|
 |loader-blander-B|192.168.122.12|52:54:00:d3:13:04|34f71325-bfa5-4c9b-ba61-d35e3ab2416c|负载均衡器|
 
@@ -60,6 +60,7 @@ ip link
 ```zsh
 cat /sys/class/dmi/id/product_uuid
 ```
+
 ### 1.4 关闭交换分区
 
 ```zsh
@@ -366,3 +367,6 @@ server {
 ```bash
 systemctl enable keepalived.service --now && systemctl enable nginx.service --now
 ```
+
+## 4. 创建集群
+使用`kubeadm init`初始化创建一个新集群，在这过程中`kubeadm`工具会自动去拉取集群所需要的容器镜像，集群前置准备检测工作，自动掰发TLS证书...等等。
