@@ -354,7 +354,7 @@ server {
     proxy_connect_timeout 5s;
     proxy_read_timeout 60s;
     proxy_send_timeout 60s;
-    
+
     # 启用 K8s 专属日志文件，并使用上面定义的格式
     access_log /var/log/nginx/k8s_apiserver_access.log main;
     error_log /var/log/nginx/k8s_apiserver_error.log warn;
@@ -366,5 +366,3 @@ server {
 ```bash
 systemctl enable keepalived.service --now && systemctl enable nginx.service --now
 ```
-
-## 创建集群
