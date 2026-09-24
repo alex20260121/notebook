@@ -327,46 +327,86 @@ curl -sfk --max-time 2 https://localhost:${APISERVER_DEST_PORT}/healthz -o /dev/
 ### 3.4 配置`Nginx`
 使用 upstream 块定义后端 API 服务器集群，并在 server 块中配置反向代理转发请求。配置文件路径: `/etc/nginx/conf.d/k8s-apiserver.conf`。
 ```ini
-# 后端 API 服务器集群
-upstream k8s-apiserver{
-  server 192.168.122.5:6443 weight=3 max_fails=3 fail_timeout=10s;
-  server 192.168.122.6:6443 weight=2 max_fails=3 fail_timeout=10s;
-  
-  # 备用服务器(当其它服务器全部不可用时)
-  server 192.168.122.7:6443 backup;
-}
+stream {
+  log_format apiserver_log "$remote_addr [$time_local] $protocol $status $bytes_sent $bytes_received $session_time $upstream_addr";
+  access_log /var/log/nginx/k8s-apiserver-access.log apiserver_log;
+  upstream k8s-apiserver {
+    # 轮询策略，least_conn（最少连接数）
+    least_conn;
 
-server {
-  listen 16443;
+    # 后端k8s控制平面主机的物理IPv4和端口
+    server 192.168.122.5:6443 max_fails=3 fail_timeout=10s;
+    server 192.168.122.6:6443 max_fails=3 fail_timeout=10s;
+    server 192.168.122.7:6443 max_fails=3 fail_timeout=10s;
+  }
 
-  # 客户端最大请求体大小限制10M
-  client_max_body_size 10M;
-
-  location / {
-    proxy_pass http://k8s-apiserver;
-
-    # 传递真实客户端IP及协议头
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-
-    # 超时设置
+  # 监听在VIP端口
+  server {
+    listen 0.0.0.0:6443;
     proxy_connect_timeout 5s;
-    proxy_read_timeout 60s;
-    proxy_send_timeout 60s;
+    proxy_timeout 10m;
 
-    # 启用 K8s 专属日志文件，并使用上面定义的格式
-    access_log /var/log/nginx/k8s_apiserver_access.log main;
-    error_log /var/log/nginx/k8s_apiserver_error.log warn;
+    proxy_pass k8s-apiserver;
   }
 }
 ```
 
-### 3.5 配置开机启动
-```bash
-systemctl enable keepalived.service --now && systemctl enable nginx.service --now
-```
-
 ## 4. 创建集群
 使用`kubeadm init`初始化创建一个新集群，在这过程中`kubeadm`工具会自动去拉取集群所需要的容器镜像，集群前置准备检测工作，自动掰发TLS证书...等等。
+```yaml
+apiVersion: kubeadm.k8s.io/v1beta4
+bootstrapTokens:
+- groups:
+  - system:bootstrappers:kubeadm:default-node-token
+  token: p1xnmg.n7m3r7b5kzbwry64
+  ttl: 24h0m0s
+  usages:
+  - signing
+  - authentication
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 192.168.122.5
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///var/run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
+  imagePullSerial: true
+  name: kubernetes-master-node-A1
+  taints: null
+timeouts:
+  controlPlaneComponentHealthCheck: 4m0s
+  discovery: 5m0s
+  etcdAPICall: 2m0s
+  kubeletHealthCheck: 4m0s
+  kubernetesAPICall: 1m0s
+  tlsBootstrap: 5m0s
+  upgradeManifests: 5m0s
+---
+apiServer: {}
+apiVersion: kubeadm.k8s.io/v1beta4
+caCertificateValidityPeriod: 87600h0m0s
+certificateValidityPeriod: 8760h0m0s
+certificatesDir: /etc/kubernetes/pki
+clusterName: Kylin
+controllerManager: {}
+dns: {}
+encryptionAlgorithm: RSA-2048
+etcd:
+  local:
+    dataDir: /var/lib/etcd
+imageRepository: registry.k8s.io
+kind: ClusterConfiguration
+kubernetesVersion: 1.37.0
+networking:
+  dnsDomain: cluster.local
+  serviceSubnet: 10.96.0.0/12
+  podSubnet: 10.244.0.0/24
+proxy: {}
+scheduler: {}
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: ipvs
+```
+### 初始化集群
+
