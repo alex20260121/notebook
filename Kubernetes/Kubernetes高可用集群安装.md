@@ -408,5 +408,29 @@ apiVersion: kubeproxy.config.k8s.io/v1alpha1
 kind: KubeProxyConfiguration
 mode: ipvs
 ```
-### 初始化集群
+### 4.1 初始化集群
+```zsh
+kubeadm init --control-plane-endpoint load-balancer:6443 --upload-certs --v=5
+```
 
+- 控制平面节点加入:
+```zsh
+kubeadm join control-plane-endpoint:6443 --token se5q2z.68ikw4y3hxsoohi7 \
+        --discovery-token-ca-cert-hash sha256:070c451de3311f0af52a00e6cef9553916b4c47b50b72b98a92bca87b468044e \
+        --control-plane --certificate-key 2153acc726f743ed2ffa149045a8d74ed90cec7cca9fe1c1dc598318dc1aae1a
+```
+- 工作节点加入：
+```zsh
+kubeadm join control-plane-endpoint:6443 --token se5q2z.68ikw4y3hxsoohi7 \
+        --discovery-token-ca-cert-hash sha256:070c451de3311f0af52a00e6cef9553916b4c47b50b72b98a92bca87b468044e
+
+```
+- `kubectl`命令行通信配置:
+```zsh
+mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+### 4.2 安装网络插件
+在未安装网络插件之前，集群的节点状态还在`NotReady`状态。
