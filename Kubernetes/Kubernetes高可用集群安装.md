@@ -455,4 +455,4 @@ curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests
 ```bash
 kubectl port-forward --address 0.0.0.0 -n calico-system svc/whisker 8081:8081
 ```
-[!whisker](/Kubernetes/screenshot/whisker.png)
+![whisker](/Kubernetes/screenshot/whisker.png)
