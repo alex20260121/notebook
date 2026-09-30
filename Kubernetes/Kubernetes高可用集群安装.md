@@ -450,3 +450,9 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.32.2
 ```bash
 curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/custom-resources.yaml
 ```
+
+### 4.4 `whisker`面板
+```bash
+kubectl port-forward --address 0.0.0.0 -n calico-system svc/whisker 8081:8081
+```
+[!whisker](/Kubernetes/screenshot/whisker.png)
