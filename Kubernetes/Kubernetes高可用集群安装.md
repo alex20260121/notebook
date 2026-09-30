@@ -400,7 +400,7 @@ kubernetesVersion: 1.37.0
 networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
-  podSubnet: 10.244.0.0/24
+  podSubnet: 10.244.0.0/16
 proxy: {}
 scheduler: {}
 ---
@@ -440,3 +440,13 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 1. Tigera Operator -- 由`calico`自己的`Operator` 负责管理 Calico 集群的安装、升级和整个生命周期。Operator 以 Deployment 的形式直接安装在集群上，并通过一个或多个自定义 Kubernetes API 资源进行配置。
 2. Calico manifests -- 使用原始清单文件来安装 Calico。清单文件包含在 Kubernetes 集群中每个节点上安装 Calico 所需的资源。不建议使用清单文件，因为它们无法像 Operator 那样自动管理 Calico 的生命周期。但是，对于需要对底层 Kubernetes 资源进行高度特定修改的集群，清单文件可能很有用。
 
+- 安装 Tigera Operator 和自定义资源定义。
+```bash
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/v1_crd_projectcalico_org.yaml
+kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/tigera-operator.yaml
+```
+
+- 下载配置 Calico 所需的自定义资源。(iptables)
+```bash
+curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.32.2/manifests/custom-resources.yaml
+```
