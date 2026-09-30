@@ -433,4 +433,10 @@ chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 ### 4.2 安装网络插件
-在未安装网络插件之前，集群的节点状态还在`NotReady`状态。
+在未安装网络插件之前，集群的节点状态还在`NotReady`状态。本文选择`calico`网络插件，`calico`的网络模式选择相对比较多，覆盖和非覆盖网络，BGP路由、IPAM等等。
+
+### 4.3 安装`calico`网络插件
+[`calico`官网](https://www.tigera.io/project-calico/)，有详累的文档说明与教程。在本地自管理的`kubernetes`集群上安装有两种选择：
+1. Tigera Operator -- 由`calico`自己的`Operator` 负责管理 Calico 集群的安装、升级和整个生命周期。Operator 以 Deployment 的形式直接安装在集群上，并通过一个或多个自定义 Kubernetes API 资源进行配置。
+2. Calico manifests -- 使用原始清单文件来安装 Calico。清单文件包含在 Kubernetes 集群中每个节点上安装 Calico 所需的资源。不建议使用清单文件，因为它们无法像 Operator 那样自动管理 Calico 的生命周期。但是，对于需要对底层 Kubernetes 资源进行高度特定修改的集群，清单文件可能很有用。
+
