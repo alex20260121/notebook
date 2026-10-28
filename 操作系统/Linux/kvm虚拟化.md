@@ -103,3 +103,20 @@ qemu-img create -f qcow2 virtualization/disks/win10.qcow2 100G
 2. 磁盘使用 virtio 总线。此方式需要额外挂载一个 virtio-win.iso 驱动光盘。
 
 但这是为了获得很好的性能，采用virtio总线的方式。
+
+```bash
+virt-install \
+  --name win10 \
+  --memory 8192 \
+  --vcpus 4 \
+  --os-variant win10 \
+  --disk path=virtualization/disks/win10.qcow2,format=qcow2,bus=virtio \
+  --cdrom virtualization/images/Win10_22H2_Chinese_Simplified_x64v1.iso \
+  --disk path=virtualization/images/virtio-win.iso,device=cdrom \
+  --network network=default,model=virtio \
+  --graphics spice,listen=0.0.0.0 \
+  --video qxl \
+  --channel spicevmc \
+  --noautoconsole
+```
+
