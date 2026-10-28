@@ -81,3 +81,25 @@ reboot
 ```
 - 成功效果图
 ![reboot](/操作系统/Screenshot/reboot.png)
+
+## 创建`windows 10`虚拟机
+
+先`uname -m`确认当前系统架构为`x86_64`，kvm无法虚拟化其它的系统架构。
+
+### 1. 创建虚拟磁盘
+
+磁盘大小按需要调整。
+
+```bash
+qemu-img create -f qcow2 virtualization/disks/win10.qcow2 100G
+```
+
+### 2. 运行`virt-install`命令安装
+
+根据驱动模式，有两种方案安装：
+
+1. 磁盘使用 sata 总线，网卡使用 e1000e。Windows 10 原生自带驱动，安装时不会遇到“找不到硬盘”的问题。
+
+2. 磁盘使用 virtio 总线。此方式需要额外挂载一个 virtio-win.iso 驱动光盘。
+
+但这是为了获得很好的性能，采用virtio总线的方式。
