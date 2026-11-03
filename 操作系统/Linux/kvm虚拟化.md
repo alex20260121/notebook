@@ -120,3 +120,13 @@ virt-install \
   --noautoconsole
 ```
 
+## 显示完整主机名
+
+对主机进行命名的时候，当出现`.`字符时如: `server.example.com`，主机名只显示了`server`而`example.com`没显示，是因为在计算机网络与 Linux 标准规范中，点（.）用于区分主机名与域名，系统在显示时把 server 识别为了短主机名，而把后面的 example.com 当作了域名，在linux bash提示符配置中默认使用了`\h`，而`\H` 才会显示完整的完整域名（FQDN）。
+
+### 修改提示符变量，强制显示完整主机名
+
+1. 编辑当前用户的配置文件（若想全局生效可修改 /etc/bashrc）：`export PS1="[\u@\H \W]\\$ "`
+
+
+2. 保存生效: `source ~/.bashrc`
