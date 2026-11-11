@@ -16,3 +16,9 @@ systemextensionsctl list
 ```zsh
 systemextensionsctl uninstall <TeamID> <BundleID>
 ```
+## 停止`OpenClaw`网关服务
+新版本的`OpenClaw`直接使用`openclaw gateway stop`或者`openclaw daemon stop`停止网关服务是会直接失败的，因为通过 macOS 原生 launchd 管理。
+```zsh
+launchctl bootout gui/$(id -u)/ai.openclaw.gateway
+```
+
