@@ -9,5 +9,5 @@
 
 ### 网关
 
-网关是`OpenClaw`所有请求来源的入口，包括`session`、`router`、`chanel`。
+网关是`OpenClaw`所有请求来源的入口，包括`session`、`router`、`chanel`等。
 
