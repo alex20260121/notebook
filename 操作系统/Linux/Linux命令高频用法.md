@@ -39,9 +39,23 @@ ss（Socket Statistics）是 Linux 下用来替代传统 netstat 的现代网络
 ss -tulnp
 ```
 
-2. 快速评估服务器当前网络负载（连接数概览）
+2. 快速评估服务器当前网络负载（连接数概览），输出一个简洁的汇总表，能立刻看出总连接数、estab（已建立）、closed、orphaned、timewait 各自有多少，比用 wc -l 统计快得多。
 ```zsh
 ss -s
 ```
-> [!NOTE]
-> 输出一个简洁的汇总表，能立刻看出总连接数、estab（已建立）、closed、orphaned、timewait 各自有多少，比用 wc -l 统计快得多。
+
+3. 杳看所有的TCP连接, 查看所有（a）TCP（t）连接的数字地址（n）和对应进程（p）。如果只想看 IPv4 或 IPv6，可额外加上 -4 或 -6。
+```zsh
+ss -tanp
+```
+
+4.  统计各种 TCP 状态的分布（配合 awk）
+```zsh
+ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c | sort -nr
+```
+> [!TIP]
+> 如果发现大量 CLOSE_WAIT，通常是应用程序代码里没有正确关闭 socket 导致的；如果大量 SYN_RECV，可能是遭受了 SYN Flood 攻击或半连接队列溢出。
+
+#### 进阶用法(过滤)
+很多人习惯用 ss -tan | grep :80，但在连接数极大时，先输出再 grep 效率低且容易误匹配（比如匹配到其他 IP 里的 :80）。ss 自带了类似 tcpdump 的高效过滤表达式（在内核层过滤），不用 grep 就能精准定位。
+
