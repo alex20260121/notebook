@@ -6,6 +6,7 @@
   - [tmux](/操作系统/Linux/tmux.md)
   - [Oh-My-ZSH终端美化](/操作系统/Linux/ohmyzsh终端美化.md)
   - [kvm虚拟化平台](/操作系统/Linux/kvm虚拟化.md)
+  - [Linux命令高频用法](/操作系统/Linux/Linux命令高频用法.md)
 - **[MacOS](/操作系统/MacOS)**
   - [源码编译安装tmux](/操作系统/MacOS/源码安装tmux.md)
   - [MacOS系统管理](/操作系统/MacOS/MacOS系统管理.md)
