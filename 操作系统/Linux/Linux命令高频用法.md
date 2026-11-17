@@ -28,3 +28,13 @@ ss（Socket Statistics）是 Linux 下用来替代传统 netstat 的现代网络
     - `-e`：显示扩展信息（如 UID、inode、cookie 等）。
     - `-m`：显示套接字占用的内存情况（排障内存泄漏或缓存区瓶颈时很有用）。
     - `-o`：显示 TCP 定时器信息（如 keepalive、retrans 等）。
+
+#### 运维高频用法
+
+> [!TIP]
+> 在没有`root`权限下需要加上`sudo`，普通用户是无法看到`root`开启的进程。
+
+1. 查看本机开放了哪些端口，被谁占用了。
+```bash
+ss -tulnp
+```
