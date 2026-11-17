@@ -59,3 +59,38 @@ ss -tan | awk 'NR>1 {print $1}' | sort | uniq -c | sort -nr
 #### 进阶用法(过滤)
 很多人习惯用 ss -tan | grep :80，但在连接数极大时，先输出再 grep 效率低且容易误匹配（比如匹配到其他 IP 里的 :80）。ss 自带了类似 tcpdump 的高效过滤表达式（在内核层过滤），不用 grep 就能精准定位。
 
+1. 按连接状态过滤（state），常见状态关键字：`established、listening、time-wait、close-wait、syn-recv、fin-wait-1、fin-wait-2`。
+```zsh
+# 只看处于 ESTABLISHED 状态的 TCP 连接
+ss -tan state established
+
+# 只看处于 TIME-WAIT 状态的连接
+ss -tan state time-wait
+
+# 组合使用：查看所有已经建立连接或相关进程
+sudo ss -tanp state established
+```
+
+2. 按 IP 和端口过滤（`src / dst / sport / dport`），端口号前面必须加冒号 :，比较操作符和括号两侧建议留空格，表达式用单引号括起来防止被 Shell 解析。
+```zsh
+# 查看目标端口是 443 的连接（作为客户端去连别人）
+ss -tan dport = :443
+
+# 查看源端口是 80 的连接（作为服务端提供 80 服务）
+ss -tan sport = :80
+
+# 简化写法（用 dst / src 同时匹配 IP 和端口）：
+# 查看与 192.168.1.50 这台机器的所有连接
+ss -tan dst 192.168.1.50
+
+# 查看来自 10.0.0.0/8 网段的连接
+ss -tan src 10.0.0.0/8
+
+# 复杂逻辑组合（or / and / not）：
+# 查找本地或对端端口为 80 或 443 的已建立连接
+ss -tan state established '( dport = :80 or sport = :80 or dport = :443 or sport = :443 )'
+
+# 端口范围比较（大于 1024 的端口：gt/ge/lt/le/eq/ne）
+ss -tan sport gt :1024
+```
+
