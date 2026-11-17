@@ -38,3 +38,10 @@ ss（Socket Statistics）是 Linux 下用来替代传统 netstat 的现代网络
 ```bash
 ss -tulnp
 ```
+
+2. 快速评估服务器当前网络负载（连接数概览）
+```zsh
+ss -s
+```
+> [!NOTE]
+> 输出一个简洁的汇总表，能立刻看出总连接数、estab（已建立）、closed、orphaned、timewait 各自有多少，比用 wc -l 统计快得多。
