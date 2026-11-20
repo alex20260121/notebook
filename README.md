@@ -12,6 +12,7 @@
   - [MacOS系统管理](/操作系统/MacOS/MacOS系统管理.md)
 - **[Windows](/操作系统/Windows/)**
   - [免费激活安装Offiece](/操作系统/Windows/免费激活安装Offiece.md)
+  - [WinServer 运维](/操作系统/Windows/WinSever运维相关.md)
 
 ## 数据库
 - **[非关系型数据库](/数据库/NoSQL)**
