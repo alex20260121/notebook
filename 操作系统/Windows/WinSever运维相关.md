@@ -24,6 +24,17 @@ systeminfo.exe | Select-String "系统启动时间:"
 
 ### 查看当前可用的动态端口范围
 
+### 查看网络连接状态
+```Powershell
+# 查看己建立的连接
+netstat -ano | findstr "ESTABLISHED" 或 netstat -ano | Select-String "ESTABLISHED"
+
+# 查看正处于监听的端口
+netstat -ano | Select-String "LISTENING"
+
+# 查看正等待关闭的连接
+netstat -ano | Select-String "CLOSE_WAIT"
+```
 
 ## CPU
 操作系统内中央处理器的操作。
