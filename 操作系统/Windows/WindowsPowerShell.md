@@ -31,4 +31,8 @@ cmdlet 名称的名词部分指示该 cmdlet 影响的资源或对象的类型�
 #### 布尔值
 某些参数接受类似`true`或`false`的布尔值，与实际布尔值不同的是，当命令包含了该开关参数，才会相当于显示指定了`True`,否则就是`False`，一个示例是 Get-ChildItem cmdlet 的 -Recurse 参数或开关。 Get-ChildItem c:\ -Recurse 命令不仅会返回 C:\ 目录中的项，还会返回其所有子目录中的项。 如果没有 -Recurse 开关，将仅返回 C:\ 目录中的项。
 
-### 
+### Tab 补全功能
+Windows Powershell有类似于Linux的Tab补全命令行功能，只需要给出模糊前几个字符按下Tab键就可以显示更多可用选项，如果知道需要适用于Active Directory资源，则可以在控制台中输入文本 `Get-AD`，然后按 Tab 键查看可用选项。
+对于参数，只需输入短划线 (-)，然后可以多次按 Tab 键查看 cmdlet 的所有参数。
+
+Tab 自动补全甚至可以使用通配符。 如果你知道某个 cmdlet 在服务上运行，但不确定需要哪个 cmdlet，请在控制台中输入文本 *-service ，然后按 Tab 键查看名称中包含文本 -service 的所有 cmdlet。
