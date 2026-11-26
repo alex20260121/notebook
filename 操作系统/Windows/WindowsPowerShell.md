@@ -123,3 +123,9 @@ Get-Alias -Definition Get-ChildItem
 ```Powershell
 New-Alias -Name "List" Get-ChildItem
 ```
+### Show-Command
+Show-Command cmdlet 将打开一个窗口，其中显示命令列表或特定命令的参数。
+```Powershell
+Show-Command -Name Get-ChildItem
+```
+![alt](/操作系统/Windows/IMAGE/show-command-get-childitem.png)
