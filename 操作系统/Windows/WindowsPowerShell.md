@@ -28,6 +28,7 @@ cmdlet 名称的名词部分指示该 cmdlet 影响的资源或对象的类型�
 
 在某些情况下，可选择不输入参数名称，只需输入参数的值即可。 运行命令 Get-ChildItem C:\ 与运行命令 Get-ChildItem -Path C:\ 相同，因为参数 -Path 在 cmdlet 定义中定义为第一个参数。 这称为位置参数。 
 
-## 布尔值
+#### 布尔值
 某些参数接受类似`true`或`false`的布尔值，与实际布尔值不同的是，当命令包含了该开关参数，才会相当于显示指定了`True`,否则就是`False`，一个示例是 Get-ChildItem cmdlet 的 -Recurse 参数或开关。 Get-ChildItem c:\ -Recurse 命令不仅会返回 C:\ 目录中的项，还会返回其所有子目录中的项。 如果没有 -Recurse 开关，将仅返回 C:\ 目录中的项。
 
+### 
