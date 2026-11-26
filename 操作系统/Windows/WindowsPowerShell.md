@@ -56,7 +56,7 @@ Get-Help about_CommonParameters -ShowWindow
 Get-Help about_CommonParameters -Online
 ```
 
-## 查找命令和 Get-Help
+### 查找命令和 Get-Help
 有时 Cmdlet 太多，无法记住所有的名称。得通过帮助来查找命令行和参数。
 
 ### 模块
@@ -129,3 +129,14 @@ Show-Command cmdlet 将打开一个窗口，其中显示命令列表或特定命
 Show-Command -Name Get-ChildItem
 ```
 ![alt](/操作系统/Windows/IMAGE/show-command-get-childitem.png)
+在 “显示命令”窗口中，为指定的命令设置的每个参数都显示在单独的选项卡上。
+
+### Get-Help
+`Get-Help`命令获取`cmdlet`使用帮助信息，也有其它函数和别名，分别为`Man`和`help`。
+
+- 显示 Get-ChildItem cmdlet 的帮助信息:
+```Powershell
+Get-Help Get-ChildItem
+```
+
+## 管理 Windows 设备的网络服务设置
