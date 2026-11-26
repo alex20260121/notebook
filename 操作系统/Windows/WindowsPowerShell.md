@@ -56,3 +56,29 @@ Get-Help about_CommonParameters -ShowWindow
 Get-Help about_CommonParameters -Online
 ```
 
+## 查找命令和 Get-Help
+有时 Cmdlet 太多，无法记住所有的名称。得通过帮助来查找命令行和参数。
+
+### 模块
+模块是一组相关的 PowerShell 功能，它们被捆绑在一起形成一个单元。要使用这些模块功能，必须将该模块加载到当前的 PowerShell 会话中。
+
+在 Windows PowerShell 版本 3.0 及更新版本中，如果运行属于该模块的 cmdlet，模块会自动加载。
+
+模块文件路径：
+
+- `%systemdir%\WindowsPowerShell\v1.0\Modules`
+
+- `%userprofiles%\Documents\WindowsPowerShell\Modules`
+
+对于 PowerShell 7，PSModulePath 包含以下位置：
+
+- C:\Users\<user>\Documents\PowerShell\Modules
+- C:\Program Files\PowerShell\Modules
+- C:\Program Files\PowerShell\7\Modules
+- C:\Program Files\WindowsPowerShell\Modules
+- C:\WINDOWS\System32\WindowsPowerShell\v1.0\Modules
+
+- 检查可用模块的列表：
+```Powershell
+Get-Module -ListAvailable
+```
