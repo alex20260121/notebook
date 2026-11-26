@@ -82,3 +82,16 @@ Get-Help about_CommonParameters -Online
 ```Powershell
 Get-Module -ListAvailable
 ```
+
+- 加载模块:
+```Powershell
+# WindowsUpdate 是模块名
+Import-Module WindowsUpdate
+```
+
+### 命令别名
+传统 Windows 命令提示符 shell (cmd.exe) 例如：
+- dir 用于列出文件和文件夹。
+- cd 用于更改目录。
+- mkdir 用于新建目录。
+
