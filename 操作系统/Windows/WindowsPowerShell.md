@@ -90,8 +90,8 @@ Import-Module WindowsUpdate
 ```
 
 ### 命令别名
-传统 Windows 命令提示符 shell (cmd.exe) 例如：
-- dir 用于列出文件和文件夹。
-- cd 用于更改目录。
-- mkdir 用于新建目录。
-
+|CMD|功能|等效于`PowerShell`|
+|---|----|------------------|
+|dir|列出目录|`Get-ChildItem`|
+|cd|切换目录|`Set-Location`|
+|mkdir|创建新目录|`New-Item`|
