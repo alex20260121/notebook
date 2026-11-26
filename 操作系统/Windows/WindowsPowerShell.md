@@ -36,3 +36,22 @@ Windows Powershell有类似于Linux的Tab补全命令行功能，只需要给出
 对于参数，只需输入短划线 (-)，然后可以多次按 Tab 键查看 cmdlet 的所有参数。
 
 Tab 自动补全甚至可以使用通配符。 如果你知道某个 cmdlet 在服务上运行，但不确定需要哪个 cmdlet，请在控制台中输入文本 *-service ，然后按 Tab 键查看名称中包含文本 -service 的所有 cmdlet。
+
+### 帮助主题
+虽然 Windows PowerShell 中的很多帮助内容与命令有关，但也有很多帮助文件描述了 PowerShell 概念。 这些文件包括有关 PowerShell 脚本语言、运算符和其他详细信息的信息。 此信息并不具体涉及单个命令，而是涉及全局 shell 技术和功能。
+
+- 可以通过运行以下命令来查看这些主题的完整列表：
+```Powershell
+Get-Help about*
+```
+
+- 查看指定主题：
+```Powershell
+Get-Help about_CommonParameters
+```
+
+- 还可以在单独的窗口中或联机打开帮助主题：
+```Powershell
+Get-Help about_CommonParameters -ShowWindow
+Get-Help about_CommonParameters -Online
+```
