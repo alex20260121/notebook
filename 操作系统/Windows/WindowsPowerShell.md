@@ -90,8 +90,24 @@ Import-Module WindowsUpdate
 ```
 
 ### 命令别名
+传统的`CMD`命令，多数情况下在`PowerShell`下可以继续使用，如：
+
 |CMD|功能|等效于`PowerShell`|
 |---|----|------------------|
 |dir|列出目录|`Get-ChildItem`|
 |cd|切换目录|`Set-Location`|
 |mkdir|创建新目录|`New-Item`|
+
+> [!TIP]
+> `CMD`别名通常不支持原始命令使用的参数。
+
+### Get-Alias
+`Get-Alias`可以列出`PowerShell`内置和新定义的别名。
+
+- 不带参数的 Get-Alias 返回所有已定义的别名。
+
+- 特定别名使用`-Name`参数：
+```Powershell
+Get-Alias -Name cd
+```
+
