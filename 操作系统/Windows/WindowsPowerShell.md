@@ -2,9 +2,9 @@
 `windows Powershell` 是一种类似于 `Linux shell` 的命令行工具，用于自动执行基于 `Windows` 的系统的管理任务。 `Windows PowerShell` 预安装在 `Windows` 操作系统的所有新式版本上。
 
 ## PowerShell cmdlet 的结构
-PowerShell cmdlet 使用的常见格式是“谓词-名词”表示法。
+PowerShell cmdlet 使用的常见格式是“动词-名词”表示法。
 
-### Cmdlet 谓词
+### Cmdlet 动词
 cmdlet 名称的谓词部分指示该 cmdlet 执行的操作。常见谓词包括：
 - Get: 检索资源，例如文件或用户。
 - Set: 更改与资源相关的数据，例如文件或用户属性。
@@ -55,3 +55,4 @@ Get-Help about_CommonParameters
 Get-Help about_CommonParameters -ShowWindow
 Get-Help about_CommonParameters -Online
 ```
+
