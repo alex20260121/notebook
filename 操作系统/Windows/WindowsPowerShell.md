@@ -111,3 +111,15 @@ Import-Module WindowsUpdate
 Get-Alias -Name cd
 ```
 
+- 获取 cmdlet 的别名:
+```Powershell
+Get-Alias -Definition Get-ChildItem
+```
+
+### New-Alias
+使用 New-Alias cmdlet 创建自定义别名，并将其映射到任何现有 cmdlet。自定义别名不会在 Windows PowerShell 会话之间保存。 每次打开 Windows PowerShell 时，都可以使用 Windows PowerShell 配置文件重新创建别名。
+
+- 创建`Get-ChildItem`的别名:
+```Powershell
+New-Alias -Name "List" Get-ChildItem
+```
