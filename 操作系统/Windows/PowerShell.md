@@ -206,3 +206,25 @@ Get-Service | Sort-Object Status,Name | fw -GroupBy Status
 ```
 
 ### 计量管道对象
+Measure-Object 用来统计管道中对象的数量和数值属性的聚合值。它有一个别名 Measure，可以直接用 Measure 代替。
+
+- 统计对象个数（默认）：
+```Powershell
+Get-Process | Measure-Object
+```
+- 指定一个属性必须为数值，再配合聚合参数计算统计值：
+```Powershell
+Get-ChildItem -File | Measure-Object -Property Length -Sum -Average -Minimum -Maximum
+```
+
+#### 可用的聚合参数:
+|参数|功能|可缩写|
+|----|----|------|
+|`-StandardDeviation`|计算指定数值属性的标准偏差。|不可缩写|
+|`-AllStats`|同时计算所有数值统计信息，相当于指定 -Sum、-Average、-Maximum、-Minimum 和 -StandardDeviation。|不可缩写|
+|`-Sum`|求和|`-Sum`|
+|`-Average`|平均值|`-Ave`|
+|`-Minimum`|最小值|`-Min`|
+|`-Maximum`|最大值|`-Max`|
+
+
