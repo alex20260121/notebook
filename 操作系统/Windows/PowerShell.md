@@ -117,6 +117,4 @@ Import-Module <模块名>
 
 > [!NOTE]
 > Windows PowerShell 版本 3.0 及更新版本中，如果运行属于该模块的 cmdlet，模块会自动加载。
-
-
-
+> 查看加载模块的路径：`echo $$env:PSModulePath`
