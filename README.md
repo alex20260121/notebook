@@ -14,6 +14,7 @@
 - **[Windows](/操作系统/Windows/)**
   - [免费激活安装Offiece](/操作系统/Windows/免费激活安装Offiece.md)
   - [WinServer 运维](/操作系统/Windows/WinSever运维相关.md)
+  - [PowerShell](/操作系统/Windows/PowerShell.md)
 
 ## 数据库
 - **[非关系型数据库](/数据库/NoSQL)**
