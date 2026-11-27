@@ -100,7 +100,7 @@ Get-Help about_CommonParameters -Online
 Get-Help about_CommonParameters -ShowWindow
 ```
 
-## 查找命令和Get-Help
+## Get-Command 和 Get-Help
 cmdlet 太多肯定无法记住所有命令，`Powershell`内置了查找帮助相关的命令来辅助该如何使用这些`cmdlet`。
 
 ### 模块
@@ -118,3 +118,19 @@ Import-Module <模块名>
 > [!NOTE]
 > Windows PowerShell 版本 3.0 及更新版本中，如果运行属于该模块的 cmdlet，模块会自动加载。
 > 查看加载模块的路径：`echo $$env:PSModulePath`
+
+### Get-Command
+Get-Command 检索单个命令或多个命令的相关信息，例如名称、类别、版本，甚至它所属的模块。
+
+- 检索单个命令：
+```Powershell
+Get-Command Get-ChildItem
+```
+- 通配符检索：
+```Powershell
+Get-Command *enent*
+```
+- 通过名词(`Noun`)筛选出动词(`Verb`)Get的命令:
+```Powershell
+Get-Command -Noun *event* -Verb Get
+```
