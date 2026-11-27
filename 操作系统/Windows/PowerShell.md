@@ -32,21 +32,22 @@ PowerShell 中的执行策略，用于控制 PowerShell 加载配置文件和运
 ### 作用域（Scope）
 |作用域|说明|
 |------|----|
-|MachinePolicy|	企业组策略设置（最高优先级）|
-|UserPolicy|	当前用户的组策略|
-|Process|	当前 PowerShell 进程（临时）|
-|CurrentUser|	当前用户（注册表）|
-|LocalMachine|	本机所有用户（默认）|
+|`MachinePolicy`|	通过组策略（GPO）为计算机所有用户设置|
+|`UserPolicy`|	通过组策略（GPO）为当前用户设置|
+|`Process`|	仅对当前 PowerShell 会话进程有效（保存在环境变量 $env:PSExecutionPolicyPreference 中，关闭窗口即失效）|
+|`CurrentUser`|	仅对当前登录用户有效（修改无需管理员权限）|
+|`LocalMachine`|	对本机所有用户有效（Set-ExecutionPolicy 的默认作用域，修改需要管理员权限）|
 
 ### 常见执行策略
 |策略|	说明|
 |----|------|
-|Restricted	|默认策略，不允许运行任何脚本（Windows 客户端）
-|AllSigned	|只能运行由可信发布者签名的脚本
-|RemoteSigned|	本地脚本可运行，下载的脚本需要签名（推荐）
-|Unrestricted|	允许运行所有脚本（会有警告）|
-|Bypass	|不阻止任何脚本，无警告|
-|RemoteSigned|	最常用的开发配置|
+|`Restricted`	|默认策略，不允许运行任何脚本（Windows 客户端）
+|`AllSigned`	|只能运行由可信发布者签名的脚本
+|`RemoteSigned`|	本地脚本可运行，下载的脚本需要签名（推荐）
+|`Unrestricted`|	允许运行所有脚本（会有警告）|
+|`Bypass`	|不阻止任何脚本，无警告|
+|`Default（默认）`|	最常用的开发配置|
+|`Undefined`|表示当前作用域（Scope）没有设置执行策略，如果所有作用域均为 Undefined，则 Windows 客户端实际生效的策略为 Restricted，Windows Server 为 RemoteSigned|
 
 - 查看当前作用域的执行策略：
 ```Powershell
