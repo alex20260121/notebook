@@ -170,3 +170,39 @@ Get-Service | Get-Member
 > [!NOTE]
 > `Get-Member`使用命令列出对象的所有成员。 此命令会列出所有属性，即使是默认情况下不在屏幕上显示的属性。 此命令还列出方法和事件，并显示对象的类型名。 例如，生成的对象 `Get-Service` 具有类型名称 System.ServiceProcess.ServiceController。
 
+### 控制管道输出的格式
+PowerShell 提供了多种控制管道输出格式的方法。 输出的默认格式取决于输出中存在的对象和定义输出的配置文件。
+格式输出包括:
+`Format-List`: 将命令的输出格式设置为简单的属性列表，其中每个属性在新行上显示。
+`Format-Tabl`: 输出格式设置为表，其中每行表示一个对象，每个列表示一个属性。 表格格式可用于同时显示多个对象的属性，并对这些对象的属性进行比较。
+`Format-Wide`: 输出是单个列表中显示的单个属性，以多列显示。
+`Format-Cust`: 自定义输出。
+
+### 管道选择
+
+
+### 管道排序
+Sort-Object 命令接受一个或多个要排序的属性名称。 默认情况下，命令按升序排序。 如果要反转排序顺序，需要添加 -Descending 参数。 如果指定多个属性，命令将按第一个属性排序，然后按第二个属性排序，依此类推。
+
+- 还可以通过将哈希表用作属性表达式，以不同的方向对多个属性进行排序。 每个哈希表指定属性名称和键ExpressionDescending。 例如：
+```Powershell
+Get-Service | Sort-Object -Property @{Expression = "Status"; Descending = $true}, @{Expression = "Name"; Descending = $false}
+```
+
+- 降序:
+```Powershell
+Get-Service | Sort-Object -Property Status -Descending
+```
+
+- 多个属性排序
+```powershell
+Get-Service | Sort-Object -Property Name,Status
+```
+
+### 按属性为对象进行分组
+对象排序支持按组显示对象，输出格式化: `Format-List、Format-Table、Format-Wide`有一个 -GroupBy 参数，该参数接受属性名称。 通过使用参数 -GroupBy ，可以按指定属性对输出进行分组。
+```Powershell
+Get-Service | Sort-Object Status,Name | fw -GroupBy Status
+```
+
+### 计量管道对象
