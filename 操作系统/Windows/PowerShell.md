@@ -178,10 +178,7 @@ PowerShell 提供了多种控制管道输出格式的方法。 输出的默认�
 `Format-Wide`: 输出是单个列表中显示的单个属性，以多列显示。
 `Format-Cust`: 自定义输出。
 
-### 管道选择
-
-
-### 管道排序
+### 管道对象排序
 Sort-Object 命令接受一个或多个要排序的属性名称。 默认情况下，命令按升序排序。 如果要反转排序顺序，需要添加 -Descending 参数。 如果指定多个属性，命令将按第一个属性排序，然后按第二个属性排序，依此类推。
 
 - 还可以通过将哈希表用作属性表达式，以不同的方向对多个属性进行排序。 每个哈希表指定属性名称和键ExpressionDescending。 例如：
@@ -199,7 +196,7 @@ Get-Service | Sort-Object -Property Status -Descending
 Get-Service | Sort-Object -Property Name,Status
 ```
 
-### 按属性为对象进行分组
+### 按属性为管道对象进行分组
 对象排序支持按组显示对象，输出格式化: `Format-List、Format-Table、Format-Wide`有一个 -GroupBy 参数，该参数接受属性名称。 通过使用参数 -GroupBy ，可以按指定属性对输出进行分组。
 ```Powershell
 Get-Service | Sort-Object Status,Name | fw -GroupBy Status
@@ -227,4 +224,22 @@ Get-ChildItem -File | Measure-Object -Property Length -Sum -Average -Minimum -Ma
 |`-Minimum`|最小值|`-Min`|
 |`-Maximum`|最大值|`-Max`|
 
+### 选择一组管道对象
+有时，可能不需要显示命令生成的所有对象。`Select-Object`选择管道中传递给它的对象子集。来限制其输出。
 
+择对象子集的方法之一是按位置选择。 如果将对象集合视为表或电子表格，那么选择子集意味着仅选择某些行。 Select-Object 可以选择特定数量的行。 使用 Select-Object 不能按列或属性值选择这些行，只能按位置选择。 可以指示它从集合的开头或末尾开始。 还可以指示它在开始选择前跳过一定数量的行。 在将对象传递给管道中的 Select-Object 之前，可以使用 Sort-Object 命令控制行顺序。
+
+- 例如，若要选择使用最少虚拟内存排名前 10 的进程，请在控制台中输入以下命令，然后按 Enter 键：
+```Powershell
+Get-Process | Sort-Object –Property VM | Select-Object –First 10
+```
+
+- 若要选择最后 10 个正在运行的服务并按名称排序:
+```Powershell
+Get-Service | Sort-Object –Property Name | Select-Object –Last 10
+```
+
+- 若要选择 CPU 用量最少的五个进程，并跳过使用最少 CPU 的那一个进程:
+```Powershell
+Get-Process | Sort-Object –Property CPU –Descending | Select-Object –First 5 –Skip 1
+```
