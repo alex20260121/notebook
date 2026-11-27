@@ -64,3 +64,16 @@ Get-ExecutionPolicy -List
 Set-ExecutionPolicy -ExecutionPolicy <PolicyName>
 ```
 
+## 语法
+`Powershell`的命令语法结构结组成："动词+名词"。如: `Get-NetTCPIP`：**Get**为动词，**NetIPaddress**为名词。名词部分指示该 cmdlet 影响的资源或对象的类型。如`Service`是 windows 服务，`Process`是 windows 进程。
+
+### 参数格式
+参数修改 cmdlet 执行的操作。 可不为 cmdlet 指定参数或为其指定一个参数或多个参数。
+
+参数名称以短划线 (-) 开头。 空格用于分隔要从参数名称传递的值。 如果传递的值包含空格，需要用引号将文本引起来。 某些参数接受多个值，这些值必须用逗号分隔（不含空格）。
+
+### Tab补全
+这个功能就类似`Linux`操作系统的补全功能了。输入 cmdlet 或参数的几个字符，然后按 Tab 键。 PowerShell 根据输入的内容自动提供缺少的名称部分。
+
+Tab 自动补全甚至可以使用通配符。 如果知道某个 cmdlet 在服务上运行，但不确定需要哪个 cmdlet，在控制台中输入文本 *-service ，然后按 Tab 键查看名称中包含文本 -service 的所有 cmdlet。
+
