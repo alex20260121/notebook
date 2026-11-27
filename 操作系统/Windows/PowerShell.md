@@ -143,4 +143,16 @@ Get-Command -Noun *event* -Verb Get
 > 模块名可以通过`Get-Module -ListAvailable`获取。
 
 ### Get-Help
-使用 Get-Help 和 Get-Command 不同的是，如果 Get-Help 找不到匹配的命令名称，它会使用查询字符串执行全文搜索。 如果运行 Get-Command *beep* 命令，则不会获得任何结果。 如果运行 Get-Help *beep* 命令，它将返回多个结果。
+使用 Get-Help 和 Get-Command 不同的是，如果 Get-Help 找不到匹配的命令名称，它会使用查询字符串执行全文搜索。 如果运行 Get-Command \*beep\* 命令，则不会获得任何结果。 如果运行 Get-Help \*beep\* 命令，它将返回多个结果。
+
+## Show-Command
+Show-Command cmdlet 打开一个窗口，其中显示命令列表或特定命令的参数。
+
+![Get-NetIPAddress](/操作系统/Windows/IMAGE/show-command-get-childitem.png)
+
+## Windows PowerShell 管道
+`PowerShell`管道概念类似于`Linux`，上个命令的输出通过管道传给下一个命令，管道符用`|`表示。和`Linux`管道概念区别的是`Linux`传递的是文本字符，而`Windows Powershell`传递的是一个对象。
+
+> [!NOTE]
+> 对象是有属性的，无需解析，可以通过属性直接过滤。
+
