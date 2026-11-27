@@ -16,5 +16,4 @@ Windows PowerShell 取代了 Windows 命令行接口 (cmd.exe) 及其批处理�
 `Windows Powershell`脚本简单来说，就是和`Linux`类似，由不同的`Powrshell`命令组成。
 
 ## 配置管理框架
-
-
+PowerShell 中的配置管理框架主要指 DSC（Desired State Configuration，期望状态配置），这是微软官方的声明式配置管理平台。
