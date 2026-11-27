@@ -140,3 +140,19 @@ Get-Help Get-ChildItem
 ```
 
 ## 管理 Windows 设备的网络服务设置
+本节将用于配置 Windows 设备网络设置的 PowerShell 模块和 cmdlet。
+
+### IP地址管理
+`NetTCPIP` 模块,可以使用 `NetTCPIP` cmdlet 添加、删除、更改和验证 IP 地址设置。
+
+> [!TIP]
+> 可以使用`Get-Command -Module NetTCPIP` 列出该模块可用的命令。
+
+用于管理IP地址的`cmdlet`:
+
+|cmdlet|说明|
+|------|----|
+|`New-NetIPAddress`|创建新的 IP 地址|
+|`Get-NetIPAddress`|显示 IP 地址的属性|
+|`Set-NetIPAddress`|修改 IP 地址的属性|
+|`Remove-NetIPAddress`|删除 IP 地址|
