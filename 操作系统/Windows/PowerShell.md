@@ -17,3 +17,8 @@ Windows PowerShell 取代了 Windows 命令行接口 (cmd.exe) 及其批处理�
 
 ## 配置管理框架
 PowerShell 中的配置管理框架主要指 DSC（Desired State Configuration，期望状态配置），这是微软官方的声明式配置管理平台。
+
+### 核心概念
+声明式 vs 命令式：
+- 命令式: 告诉系统怎么做(一步一步执行命令)。
+- 声明式（DSC）：告诉系统"要什么状态"，系统自动判断并达成。
