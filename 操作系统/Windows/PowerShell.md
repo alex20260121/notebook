@@ -29,3 +29,8 @@ PowerShell 中的执行策略，用于控制 PowerShell 加载配置文件和运
 > [!TIP]
 > 用户无法执行脚本，但可以通过在命令行中输入脚本内容来绕开策略。
 
+- 查看当前执行策略：
+```Powershell
+Get-ExecutionPolicy
+```
+
