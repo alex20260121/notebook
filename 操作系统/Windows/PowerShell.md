@@ -77,3 +77,46 @@ Set-ExecutionPolicy -ExecutionPolicy <PolicyName>
 
 Tab 自动补全甚至可以使用通配符。 如果知道某个 cmdlet 在服务上运行，但不确定需要哪个 cmdlet，在控制台中输入文本 *-service ，然后按 Tab 键查看名称中包含文本 -service 的所有 cmdlet。
 
+## 帮助主题
+主题：是 PowerShell 的概念文档，解释核心概念、设计理念和最佳实践，而不是具体命令的用法，与 `Get-Help <命令>` 的区别：后者告诉你"怎么用这个命令"，而 `about_*` 告诉你"这个功能背后的原理"
+
+- 查看完整的帮助主题:
+```Powershell
+Get-Help about*
+```
+
+- 查看某个帮助主题，如有关cmdlet参数的主题:
+```Powershell
+Get-Help about_CommonParameters
+```
+
+- 联机查看主题：
+```Powershell
+Get-Help about_CommonParameters -Online
+```
+
+- 新窗口中查看主题：
+```Powershell
+Get-Help about_CommonParameters -ShowWindow
+```
+
+## 查找命令和Get-Help
+cmdlet 太多肯定无法记住所有命令，`Powershell`内置了查找帮助相关的命令来辅助该如何使用这些`cmdlet`。
+
+### 模块
+模块是一组相关的 PowerShell 功能，它们被捆绑在一起形成一个单元。可以将它们视为托管多个 cmdlet 的容器。 模块有助于将 cmdlet 组织到可分发单元中。
+
+- 检索当前可用的模块:
+```Powershell
+Get-Module -ListAvailable
+```
+- 加载模块:
+```Powershell
+Import-Module <模块名>
+```
+
+> [!NOTE]
+> Windows PowerShell 版本 3.0 及更新版本中，如果运行属于该模块的 cmdlet，模块会自动加载。
+
+
+
