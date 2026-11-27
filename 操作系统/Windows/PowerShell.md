@@ -29,12 +29,31 @@ PowerShell 中的执行策略，用于控制 PowerShell 加载配置文件和运
 > [!TIP]
 > 用户无法执行脚本，但可以通过在命令行中输入脚本内容来绕开策略。
 
-- 查看当前执行策略：
+### 作用域（Scope）
+|作用域|说明|
+|------|----|
+|MachinePolicy|	企业组策略设置（最高优先级）|
+|UserPolicy|	当前用户的组策略|
+|Process|	当前 PowerShell 进程（临时）|
+|CurrentUser|	当前用户（注册表）|
+|LocalMachine|	本机所有用户（默认）|
+
+### 常见执行策略
+|策略|	说明|
+|----|------|
+|Restricted	|默认策略，不允许运行任何脚本（Windows 客户端）
+|AllSigned	|只能运行由可信发布者签名的脚本
+|RemoteSigned|	本地脚本可运行，下载的脚本需要签名（推荐）
+|Unrestricted|	允许运行所有脚本（会有警告）|
+|Bypass	|不阻止任何脚本，无警告|
+|RemoteSigned|	最常用的开发配置|
+
+- 查看当前作用域的执行策略：
 ```Powershell
 Get-ExecutionPolicy
 ```
 
-- 列出有哪些策略：
+- 查看所有作用域的执行策略：
 ```Powershell
 Get-ExecutionPolicy -List
 ```
