@@ -34,3 +34,13 @@ PowerShell 中的执行策略，用于控制 PowerShell 加载配置文件和运
 Get-ExecutionPolicy
 ```
 
+- 列出有哪些策略：
+```Powershell
+Get-ExecutionPolicy -List
+```
+
+- 设置执行策略:
+```Powershell
+Set-ExecutionPolicy -ExecutionPolicy <PolicyName>
+```
+
