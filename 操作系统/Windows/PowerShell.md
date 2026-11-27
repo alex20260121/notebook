@@ -134,3 +134,13 @@ Get-Command *enent*
 ```Powershell
 Get-Command -Noun *event* -Verb Get
 ```
+- 通过模块名包仿的命令列表:
+```Powershell
+ Get-Command -Module ProcessMitigations
+```
+
+> [!TIP]
+> 模块名可以通过`Get-Module -ListAvailable`获取。
+
+### Get-Help
+使用 Get-Help 和 Get-Command 不同的是，如果 Get-Help 找不到匹配的命令名称，它会使用查询字符串执行全文搜索。 如果运行 Get-Command *beep* 命令，则不会获得任何结果。 如果运行 Get-Help *beep* 命令，它将返回多个结果。
